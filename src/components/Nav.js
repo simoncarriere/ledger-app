@@ -27,16 +27,16 @@ const Nav = () => {
             <div className="flex flex-col flex-grow mt-8"> {/* <div className="flex-1 h-0 mt-5 overflow-y-auto"> */}
                 <nav className="flex-1 px-4 pb-4 space-y-1">
                     {navigation.map((item) => (
-                    <Link
-                        key={item.name}
-                        to={item.href}
-                        className={classNames(
-                        item.current ? 'bg-lime-200 text-gray-900' : 'text-gray-700 hover:bg-slate-200 hover:text-gray-900',
-                        'group rounded-md py-3 px-4 flex items-center text-sm font-medium'
-                        )}
-                    >
-                        {item.name}
-                    </Link>
+                        <Link
+                            key={item.name}
+                            to={item.href}
+                            className={classNames(
+                            item.current ? 'bg-lime-300 text-gray-900 hover:bg-lime-200' : 'text-gray-500 hover:bg-slate-200 hover:text-gray-900',
+                            'group rounded-md py-3 px-4 flex items-center text-sm font-medium'
+                            )}
+                        >
+                            {item.name}
+                        </Link>
                     ))}
                 </nav>
             </div>
