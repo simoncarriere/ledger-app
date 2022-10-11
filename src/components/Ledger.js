@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import NewTransaction from './NewTransaction';
 
 const current = new Date();
 const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
@@ -10,14 +12,18 @@ const transactions = [
   // More people...
 ]
 const Users = () => {
-  return (
+
+    const [openNewTransaction, setOpenNewTransaction] = useState(false)
+
+    return (
     <div>
         <div className="flex items-center justify-between ">
             <h3 className="text-xl font-medium leading-6 text-gray-900">Recent Transactions</h3>
             <div className="flex mt-3 sm:mt-0 sm:ml-4">
                 <button
-                type="button"
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    onClick={() => setOpenNewTransaction(true)}
+                    type="button"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                 New Transaction
                 </button>
@@ -127,6 +133,7 @@ const Users = () => {
                 </div>
             </div>
         </div>
+        <NewTransaction openNewTransaction={openNewTransaction} setOpenNewTransaction={setOpenNewTransaction}/>
     </div>
   )
 }
