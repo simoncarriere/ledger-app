@@ -69,7 +69,7 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
             {/* Static sidebar for desktop */}
             <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
                 {/* Sidebar component, swap this element with another sidebar if you like */}
-                <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-slate-100">
+                <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-slate-50">
                     <Nav />
                 </div>
             </div>

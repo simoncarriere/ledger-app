@@ -18,7 +18,7 @@ function App() {
 
         {/* Right Section */}             
         <div className="md:pl-64">
-          <div className="flex flex-col max-w-4xl mx-auto md:px-8 xl:px-0">
+          <div className="flex flex-col mx-auto md:px-8">
 
             {/* Search Bar, Notification Icon, and Hamburger Menu */}        
             <Topbar setSidebarOpen={setSidebarOpen}/>
