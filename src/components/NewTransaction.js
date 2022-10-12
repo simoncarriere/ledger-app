@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { ChevronUpDownIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { ChevronUpDownIcon, XCircleIcon } from '@heroicons/react/20/solid'
 
 const categories = [
     { id: 1, name: 'Office' },
@@ -10,6 +10,7 @@ const categories = [
     { id: 4, name: 'Marketing' },
     { id: 5, name: 'Outsourcing' }
 ]
+
 
 const people = [
     { name: 'Wade Cooper', username: '@wadecooper' },
@@ -23,11 +24,50 @@ function classNames(...classes) {
 }
 
 
-const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
+const current = new Date();
+const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
 
+const NewTransaction = ({openNewTransaction, setOpenNewTransaction, transactions, setTransactions}) => {
+
+    const [title, setTitle] = useState('')
+    const [amount, setAmount] = useState(0)
     const [selectedCategory, setSelectedCategory] = useState(categories[0])
     const [selectedPerson, setSelectedPerson] = useState(people[0])
+    const [desc, setDesc] = useState('')
+
+    const [errors, setErrors] = useState([])
+    
+
+    const newTransaction = (e) => {
+        e.preventDefault()
+
+        setErrors([])
+       
+        
+        if (amount > 0){
+
+            
+
+            let newTransaction = {
+                title: title, 
+                amount: amount,
+                date:date,
+                purchased_by: selectedPerson.name,
+                type: selectedCategory.name,
+                desc: desc,
+                transaction_id: Date.now()
+            }
+
+            setTransactions([...transactions, newTransaction])
+            setOpenNewTransaction(false)
+            setTitle('')
+            setAmount(0)
+            setDesc(0)
+        } else {
+            setErrors([...errors, 'Enter a amount bigger then one'])
+        }
+    }
 
     return ( 
         <Transition.Root show={openNewTransaction} as={Fragment}>
@@ -86,8 +126,8 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                         <Dialog.Title className="text-lg font-medium text-gray-900">Add New Transaction</Dialog.Title>
                                     </div>
 
-
                                     {/* Form */}
+                                    <form onSubmit={newTransaction}>
                                     <div className="relative flex-1 px-4 mt-6 sm:px-6">
                                         <div className="flex flex-col justify-between flex-1">
                                             <div className="divide-y divide-gray-200 ">
@@ -100,10 +140,14 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                         </label>
                                                         <div className="mt-1">
                                                             <input
-                                                            type="text"
-                                                            name="project-name"
-                                                            id="project-name"
-                                                            className="block w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 sm:text-sm"
+                                                                value={title}
+                                                                onChange={(e) => setTitle(e.target.value)}
+                                                                required
+                                                                type="text"
+                                                                name="project-name"
+                                                                id="project-name"
+                                                                placeholder='Transaction Title'
+                                                                className="block w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 sm:text-sm"
                                                             />
                                                         </div>
                                                     </div>
@@ -118,12 +162,15 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                             <span className="text-gray-500 sm:text-sm">$</span>
                                                             </div>
                                                             <input
-                                                            type="text"
-                                                            name="price"
-                                                            id="price"
-                                                            className="block w-full pr-12 border-gray-300 rounded-md pl-7 focus:border-lime-500 focus:ring-lime-500 sm:text-sm"
-                                                            placeholder="0.00"
-                                                            aria-describedby="price-currency"
+                                                                type="number"
+                                                                name="price"
+                                                                id="price"
+                                                                className="block w-full pr-12 border-gray-300 rounded-md pl-7 focus:border-lime-500 focus:ring-lime-500 sm:text-sm"
+                                                                placeholder="0.00"
+                                                                aria-describedby="price-currency"
+                                                                required
+                                                                value={amount}
+                                                                onChange={e => setAmount(e.target.value)}
                                                             />
                                                             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                                             <span className="text-gray-500 sm:text-sm" id="price-currency">
@@ -252,11 +299,12 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                         </label>
                                                         <div className="mt-1">
                                                             <textarea
-                                                            id="description"
-                                                            name="description"
-                                                            rows={4}
-                                                            className="block w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 sm:text-sm"
-                                                            defaultValue={''}
+                                                                id="description"
+                                                                name="description"
+                                                                rows={4}
+                                                                className="block w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 sm:text-sm"
+                                                                value={desc}
+                                                                onChange={e => setDesc(e.target.value)}
                                                             />
                                                         </div>
                                                     </div>
@@ -265,21 +313,42 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                             </div>
                                         </div>
                                     </div>
+                                    {errors.length > 0 && (
+                                        <div className="p-4 m-4 rounded-md bg-red-50">
+                                            <div className="flex">
+                                            <div className="flex-shrink-0">
+                                                <XCircleIcon className="w-5 h-5 text-red-400" aria-hidden="true" />
+                                            </div>
+                                            <div className="ml-3">
+                                                <h3 className="text-sm font-medium text-red-800">There were {errors.length} error with your submission</h3>
+                                                <div className="mt-2 text-sm text-red-700">
+                                                    <ul role="list" className="pl-5 space-y-1 list-disc">
+                                                        {errors.map((i) => (
+                                                            <li key={i}>{i}</li>
+                                                        ))}   
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            </div>
+                                       </div>
+                                    )}                                                
+
                                     <div className="flex justify-end flex-shrink-0 w-full px-4 py-4 flex-column">
                                         <button
                                             type="button"
-                                            className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                            className="w-full px-4 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                             onClick={() => setOpenNewTransaction(false)}
                                         >
                                             Cancel
                                         </button>
                                         <button
                                             type="submit"
-                                            className="justify-center w-full px-4 py-2 ml-4 text-sm font-medium text-gray-900 border border-transparent rounded-md shadow-sm bg-lime-300 hover:bg-lime-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                            className="justify-center w-full px-4 py-4 ml-4 text-sm font-medium text-gray-900 border border-transparent rounded-md shadow-sm bg-lime-300 hover:bg-lime-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                         >
-                                            Save
+                                            Create
                                         </button>
                                     </div>
+                                    </form>
                                 </div>
                             </Dialog.Panel>
                             </Transition.Child>

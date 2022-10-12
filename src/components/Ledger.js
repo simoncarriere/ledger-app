@@ -2,21 +2,15 @@ import { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import NewTransaction from './NewTransaction';
 
-const current = new Date();
-const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+const Ledger = () => {
 
-const transactions = [
-  { transaction_id: Date.now(), title: 'Herman Miller', amount:2500, date: date, purchased_by: 'Simon', type: 'Office' },
-  { transaction_id: Date.now(), title: 'Qatar Airways', amount:1200, date: date, purchased_by: 'Peter', type: 'Travel' },
-  { transaction_id: Date.now(), title: 'Stripe', amount:12.99, date: date, purchased_by: 'Peter', type: 'Digital' },
-  // More people...
-]
-const Users = () => {
-
+    const [transactions, setTransactions] = useState([])
     const [openNewTransaction, setOpenNewTransaction] = useState(false)
 
     return (
     <div>
+        
+        {/* Table Heading */}
         <div className="flex items-center justify-between ">
             <h3 className="text-xl font-medium leading-6 text-gray-900">Recent Transactions</h3>
             <div className="flex mt-3 sm:mt-0 sm:ml-4">
@@ -29,11 +23,14 @@ const Users = () => {
                 </button>
             </div>
         </div>
-        <div className="flex flex-col mt-8">
+        
+        {/* Table */}
+        <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                     <div className="overflow-hidden md:rounded-lg">
-                        <table className="min-w-full ">
+                        {transactions.length > 0 ? (
+                            <table className="min-w-full ">
                             <thead className="bg-slate-100">
                                 <tr>
                                     <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-medium text-gray-900 sm:pl-6 hidden xl:table-cell">
@@ -101,41 +98,67 @@ const Users = () => {
                                     </th>
                                 </tr>
                             </thead>
+                           
                             <tbody className='divide-y divide-slate-200'>
-                            {transactions.map((transaction) => (
-                                <tr key={transaction.transaction_id} className="cursor-pointer hover:bg-slate-100">
-                                    <td className="hidden py-4 pl-4 pr-3 text-sm font-medium text-gray-900 xl:table-cell whitespace-nowrap sm:pl-6">
-                                        #{transaction.transaction_id}
-                                    </td>
-                                    <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                        {transaction.title}
-                                        <dl className="font-normal lg:hidden">
-                                            <dt className="sr-only">Title</dt>
-                                            <dd className="mt-1 text-gray-700 truncate">{transaction.amount}</dd>
-                                            <dt className="sr-only lg:hidden">Email</dt>
-                                            <dd className="mt-1 text-gray-500 truncate lg:hidden">{transaction.date}</dd>
-                                        </dl>
-                                    </td>
-                                    <td className="hidden px-3 py-4 text-sm text-gray-500 whitespace-nowrap lg:table-cell">${transaction.amount}</td>
-                                    <td className="hidden px-3 py-4 text-sm text-gray-500 whitespace-nowrap lg:table-cell">{transaction.date}</td>
-                                    <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.purchased_by}</td>
-                                    <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.type}</td>
-                                    <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                        <a href="#" className="text-gray-800 hover:text-lime-400">
-                                        Edit<span className="sr-only">, {transaction.name}</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
+                                {transactions.map((transaction) => (
+                                    <tr key={transaction.transaction_id} className="cursor-pointer hover:bg-slate-100">
+                                        <td className="hidden py-4 pl-4 pr-3 text-sm font-medium text-gray-900 xl:table-cell whitespace-nowrap sm:pl-6">
+                                            #{transaction.transaction_id}
+                                        </td>
+                                        <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                            {transaction.title}
+                                            <dl className="font-normal lg:hidden">
+                                                <dt className="sr-only">Title</dt>
+                                                <dd className="mt-1 text-gray-700 truncate">{transaction.amount}</dd>
+                                                <dt className="sr-only lg:hidden">Email</dt>
+                                                <dd className="mt-1 text-gray-500 truncate lg:hidden">{transaction.date}</dd>
+                                            </dl>
+                                        </td>
+                                        <td className="hidden px-3 py-4 text-sm text-gray-500 whitespace-nowrap lg:table-cell">${transaction.amount}</td>
+                                        <td className="hidden px-3 py-4 text-sm text-gray-500 whitespace-nowrap lg:table-cell">{transaction.date}</td>
+                                        <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.purchased_by}</td>
+                                        <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.type}</td>
+                                        <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
+                                            <a href="#" className="text-gray-800 hover:text-lime-400">
+                                            Edit<span className="sr-only">, {transaction.name}</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <div className="py-8 text-center border-t border-slate-200 ">
+                                <svg
+                                    className="w-12 h-12 mx-auto text-gray-400 transition ease-in-out cursor-pointer hover:text-lime-400 hover:-translate-y-1 hover:scale-105"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                    onClick={() => setOpenNewTransaction(true)}
+                                >
+                                    <path
+                                       vectorEffect="non-scaling-stroke"
+                                       strokeLinecap="round"
+                                       strokeLinejoin="round"
+                                       strokeWidth={2}
+                                       d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+                                    />
+                                </svg>
+                                <h3 className="mt-2 text-sm font-medium text-gray-900">No Transactions</h3>
+                                <p className="mt-1 text-sm text-gray-500">Get started by adding your first transaction.</p>  
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
         </div>
-        <NewTransaction openNewTransaction={openNewTransaction} setOpenNewTransaction={setOpenNewTransaction}/>
+
+        {/* Slideout */}
+        <NewTransaction openNewTransaction={openNewTransaction} setOpenNewTransaction={setOpenNewTransaction} transactions={transactions} setTransactions={setTransactions}/>
+    
     </div>
   )
 }
 
-export default Users;
+export default Ledger;
