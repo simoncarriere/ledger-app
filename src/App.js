@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BrowserRouter, Link } from "react-router-dom"
 
 import './App.css';
 // Components
@@ -13,7 +14,7 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div>
+    <BrowserRouter>
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
 
         {/* Right Section */}             
@@ -28,7 +29,7 @@ function App() {
             
           </div>
         </div>
-      </div>
+      </BrowserRouter>
   );
 }
 

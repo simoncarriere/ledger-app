@@ -1,11 +1,11 @@
-import { BrowserRouter, Link, Routes, Route } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const navigation = [
     { name: 'Dashboard', href: 'dashboard',  current: true },
     { name: 'Team', href: 'team',  current: false },
-    { name: 'Ledger', href: '#',  current: false },
-    { name: 'Calendar', href: '#',  current: false },
-    { name: 'Reports', href: '#',  current: false },
+    { name: 'Ledger', href: 'ledger',  current: false },
+    // { name: 'Calendar', href: '#',  current: false },
+    { name: 'Reports', href: 'reports',  current: false },
 ]
 
 
@@ -16,7 +16,7 @@ function classNames(...classes) {
 
 const Nav = () => {
     return ( 
-        <BrowserRouter>
+        <>
             <div className="flex items-center flex-shrink-0 px-4">
                 <img
                     className="w-auto h-8"
@@ -41,7 +41,7 @@ const Nav = () => {
                 </nav>
             </div>
 
-        </BrowserRouter>
+        </>
      );
 }
  

@@ -13,8 +13,8 @@ const Topbar = ({setSidebarOpen}) => {
                 <Bars3BottomLeftIcon className="w-6 h-6" aria-hidden="true" />
               </button>
               <div className="flex justify-between flex-1 px-4 md:px-0">
-                <div className="flex flex-1">
-                  <form className="flex w-full md:ml-0" action="#" method="GET">
+                <div className="flex flex-1 ">
+                  <form className="flex w-full md:ml-0 " action="#" method="GET">
                     <label htmlFor="search-field" className="sr-only">
                       Search
                     </label>
@@ -35,7 +35,7 @@ const Topbar = ({setSidebarOpen}) => {
                 <div className="flex items-center ml-4 md:ml-6">
                   <button
                     type="button"
-                    className="p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
                   >
                     <span className="sr-only">View notifications</span>
                     <BellIcon className="w-6 h-6" aria-hidden="true" />

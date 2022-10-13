@@ -1,11 +1,40 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import NewTransaction from './NewTransaction';
 
 const Ledger = () => {
-
+    
     const [transactions, setTransactions] = useState([])
+    
+    // Grab ledger from local Storage 
+    useEffect(() => {
+        const localData = JSON.parse(localStorage.getItem("ledger"));
+        if (localData) {
+          setTransactions( prevTransactions => [...prevTransactions, ...localData] ); 
+    }}, [])
+
+    // Set updated ledger
+    useEffect(() => {
+            localStorage.setItem('ledger', JSON.stringify(transactions))
+    }, [transactions])
+
+    
+
+    const removeTransaction = (id) => {
+        let newLedger = transactions.filter((transaction) => (
+            transaction.transaction_id !== id
+        ))
+        setTransactions(newLedger)
+    }
+    
+
+    // Slideout
     const [openNewTransaction, setOpenNewTransaction] = useState(false)
+
+
+    const openSlideout = () => {
+        setOpenNewTransaction(true)
+    }
 
     return (
     <div>
@@ -17,7 +46,7 @@ const Ledger = () => {
                 <button
                     onClick={() => setOpenNewTransaction(true)}
                     type="button"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
                 >
                     New Transaction
                 </button>
@@ -31,77 +60,77 @@ const Ledger = () => {
                     <div className="overflow-hidden md:rounded-lg">
                         {transactions.length > 0 ? (
                             <table className="min-w-full ">
-                            <thead className="bg-slate-100">
-                                <tr>
-                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-medium text-gray-900 sm:pl-6 hidden xl:table-cell">
+                                <thead className="bg-slate-100">
+                                    <tr>
+                                        <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-medium text-gray-900 sm:pl-6 hidden xl:table-cell">
+                                            <a href="#" className="inline-flex group">
+                                                Transaction ID
+                                                <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
+                                                    <ChevronDownIcon className="w-5 h-5" aria-hidden="true" />
+                                                </span>
+                                            </a>
+                                        </th>
+                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
+                                            <a href="#" className="inline-flex group">
+                                                Title
+                                                <span className="flex-none ml-2 text-gray-900 bg-gray-200 rounded group-hover:bg-gray-300">
+                                                    <ChevronDownIcon className="w-5 h-5" aria-hidden="true" />
+                                                </span>
+                                            </a>
+                                        </th>
+                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900 hidden lg:table-cell">
+                                            <a href="#" className="inline-flex group">
+                                                Amount
+                                                <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
+                                                    <ChevronDownIcon
+                                                        className="flex-none invisible w-5 h-5 ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
+                                                        aria-hidden="true"
+                                                    />
+                                                </span>
+                                            </a>
+                                        </th>
+                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900 hidden lg:table-cell">
+                                            <a href="#" className="inline-flex group">
+                                                Date
+                                                <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
+                                                    <ChevronDownIcon
+                                                        className="flex-none invisible w-5 h-5 ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
+                                                        aria-hidden="true"
+                                                    />
+                                                </span>
+                                            </a>
+                                        </th>
+                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
                                         <a href="#" className="inline-flex group">
-                                            Transaction ID
+                                            Purchased By
                                             <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
-                                                <ChevronDownIcon className="w-5 h-5" aria-hidden="true" />
+                                            <ChevronDownIcon
+                                                className="flex-none invisible w-5 h-5 ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
+                                                aria-hidden="true"
+                                            />
                                             </span>
                                         </a>
-                                    </th>
-                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
-                                        <a href="#" className="inline-flex group">
-                                            Title
-                                            <span className="flex-none ml-2 text-gray-900 bg-gray-200 rounded group-hover:bg-gray-300">
-                                                <ChevronDownIcon className="w-5 h-5" aria-hidden="true" />
-                                            </span>
-                                        </a>
-                                    </th>
-                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900 hidden lg:table-cell">
-                                        <a href="#" className="inline-flex group">
-                                            Amount
-                                            <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
-                                                <ChevronDownIcon
-                                                    className="flex-none invisible w-5 h-5 ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
-                                                    aria-hidden="true"
-                                                />
-                                            </span>
-                                        </a>
-                                    </th>
-                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900 hidden lg:table-cell">
-                                        <a href="#" className="inline-flex group">
-                                            Date
-                                            <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
-                                                <ChevronDownIcon
-                                                    className="flex-none invisible w-5 h-5 ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
-                                                    aria-hidden="true"
-                                                />
-                                            </span>
-                                        </a>
-                                    </th>
-                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
-                                    <a href="#" className="inline-flex group">
-                                        Purchased By
-                                        <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
-                                        <ChevronDownIcon
-                                            className="flex-none invisible w-5 h-5 ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
-                                            aria-hidden="true"
-                                        />
-                                        </span>
-                                    </a>
-                                    </th>
-                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
-                                        <a href="#" className="inline-flex group">
-                                            Type
-                                            <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
-                                                <ChevronDownIcon
-                                                    className="flex-none invisible w-5 h-5 ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
-                                                    aria-hidden="true"
-                                                />
-                                            </span>
-                                        </a>
-                                    </th>
-                                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                        <span className="sr-only">Edit</span>
-                                    </th>
-                                </tr>
-                            </thead>
+                                        </th>
+                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
+                                            <a href="#" className="inline-flex group">
+                                                Type
+                                                <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
+                                                    <ChevronDownIcon
+                                                        className="flex-none invisible w-5 h-5 ml-2 text-gray-400 rounded group-hover:visible group-focus:visible"
+                                                        aria-hidden="true"
+                                                    />
+                                                </span>
+                                            </a>
+                                        </th>
+                                        <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                            <span className="sr-only">Edit</span>
+                                        </th>
+                                    </tr>
+                                </thead>
                            
-                            <tbody className='divide-y divide-slate-200'>
+                                <tbody className='divide-y divide-slate-200'>
                                 {transactions.map((transaction) => (
-                                    <tr key={transaction.transaction_id} className="cursor-pointer hover:bg-slate-100">
+                                    <tr onClick={() => openSlideout()} key={transaction.transaction_id}  className="cursor-pointer hover:bg-slate-100">
                                         <td className="hidden py-4 pl-4 pr-3 text-sm font-medium text-gray-900 xl:table-cell whitespace-nowrap sm:pl-6">
                                             #{transaction.transaction_id}
                                         </td>
@@ -126,8 +155,10 @@ const Ledger = () => {
                                     </tr>
                                 ))}
                                 </tbody>
+                                
                             </table>
                         ) : (
+                            // Empty State
                             <div className="py-8 text-center border-t border-slate-200 ">
                                 <svg
                                     className="w-12 h-12 mx-auto text-gray-400 transition ease-in-out cursor-pointer hover:text-lime-400 hover:-translate-y-1 hover:scale-105"
@@ -162,3 +193,5 @@ const Ledger = () => {
 }
 
 export default Ledger;
+
+

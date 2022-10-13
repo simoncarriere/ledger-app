@@ -37,17 +37,22 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction, transactions
     const [desc, setDesc] = useState('')
 
     const [errors, setErrors] = useState([])
-    
+
+    const resetForm = () => {
+        setOpenNewTransaction(false)
+        setTitle('')
+        setAmount(0)
+        setSelectedCategory(categories[0])
+        setSelectedPerson(people[0])
+        setDesc('')
+    }
 
     const newTransaction = (e) => {
         e.preventDefault()
 
         setErrors([])
        
-        
         if (amount > 0){
-
-            
 
             let newTransaction = {
                 title: title, 
@@ -63,12 +68,14 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction, transactions
             setOpenNewTransaction(false)
             setTitle('')
             setAmount(0)
-            setDesc(0)
+            setDesc('')
         } else {
-            setErrors([...errors, 'Enter a amount bigger then one'])
+            setErrors([...errors, 'Amount must be higher then zero'])
         }
     }
 
+
+    
     return ( 
         <Transition.Root show={openNewTransaction} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={setOpenNewTransaction}>
@@ -83,7 +90,6 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction, transactions
                 >
                     <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
                 </Transition.Child>
-    
                 <div className="fixed inset-0 overflow-hidden">
                     <div className="absolute inset-0 overflow-hidden">
                         <div className="fixed inset-y-0 right-0 flex max-w-full pl-10 pointer-events-none">
@@ -336,14 +342,14 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction, transactions
                                     <div className="flex justify-end flex-shrink-0 w-full px-4 py-4 flex-column">
                                         <button
                                             type="button"
-                                            className="w-full px-4 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                            onClick={() => setOpenNewTransaction(false)}
+                                            className="w-full px-4 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
+                                            onClick={() => resetForm()}
                                         >
                                             Cancel
                                         </button>
                                         <button
                                             type="submit"
-                                            className="justify-center w-full px-4 py-4 ml-4 text-sm font-medium text-gray-900 border border-transparent rounded-md shadow-sm bg-lime-300 hover:bg-lime-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                            className="justify-center w-full px-4 py-4 ml-4 text-sm font-medium text-gray-900 border border-transparent rounded-md shadow-sm bg-lime-300 hover:bg-lime-200 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
                                         >
                                             Create
                                         </button>

@@ -1,20 +1,25 @@
 # TODO
 
-- [ ] Routing for Sidebar
+- [ ] Persist Transactions to local Storage
+- [ ] Routing for Sidebar Nav
 - [ ] CRUD Transactions 
 - [ ] Filter table (title alphabetically, amount asseending/descending, By date, Purchased by alphabetically)
-- [ ] Add TImeline 
+- [ ] Add Timeline 
 - [ ] Team Page, Transactions & Person 
     - [ ] CRUD
     - [ ] Team members info (Name, title, position, email, limit, ledger /  recent purchases)
     - [ ] Allocate spending limit to each person and vizualize in progress bar
-- [ ] 
+- [ ] Notifications
 - [ ] Dashboard / Reports 
     - [ ] [Polar Area Chart](https://react-chartjs-2.js.org/examples/polar-area-chart) to vizualize people's spending and their limits
     - [ ] [Grouped Bar Chart](https://react-chartjs-2.js.org/examples/grouped-bar-chart) to vizualize spending categorizes over time or accoss people
     - [ ] [Scatter Chart](https://react-chartjs-2.js.org/examples/scatter-chart) to vizualize all transactions (time over amount), extend to color coordinated points
     - [ ] [Line Chart](https://react-chartjs-2.js.org/examples/line-chart) to vizualize category spending over time 
     - [ ] Animate Charts using Delay from Chart.js docs
+
+# Bugs
+
+- [ ] New Transaction Slideout, 2nd time submitting with perssisting error
 
 
 # Project Notes 
