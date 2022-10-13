@@ -1,4 +1,6 @@
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
 	body {
@@ -10,5 +12,10 @@
 	}
 }
 
-@tailwind components;
-@tailwind utilities;
+@layer components {
+	.nav-link {
+		@apply  rounded-md py-3 px-4 flex items-center text-sm font-medium
+	}
+}
+
+

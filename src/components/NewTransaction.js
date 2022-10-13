@@ -11,7 +11,6 @@ const categories = [
     { id: 5, name: 'Outsourcing' }
 ]
 
-
 const people = [
     { name: 'Wade Cooper', username: '@wadecooper' },
     { name: 'Arlene Mccoy', username: '@arlenemccoy' },

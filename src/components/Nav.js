@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 const navigation = [
-    { name: 'Dashboard', href: 'dashboard',  current: true },
-    { name: 'Team', href: 'team',  current: false },
-    { name: 'Ledger', href: 'ledger',  current: false },
-    // { name: 'Calendar', href: '#',  current: false },
-    { name: 'Reports', href: 'reports',  current: false },
+    { name: 'Dashboard', href: 'dashboard' },
+    { name: 'Team', href: 'team' },
+    { name: 'Ledger', href: 'ledger' },
+    // { name: 'Calendar', href: '#' },
+    { name: 'Reports', href: 'reports' },
 ]
 
 
@@ -27,16 +27,15 @@ const Nav = () => {
             <div className="flex flex-col flex-grow mt-8"> {/* <div className="flex-1 h-0 mt-5 overflow-y-auto"> */}
                 <nav className="flex-1 px-4 pb-4 space-y-1">
                     {navigation.map((item) => (
-                        <Link
+                        <NavLink
                             key={item.name}
                             to={item.href}
-                            className={classNames(
-                            item.current ? 'bg-lime-300 text-gray-900 hover:bg-lime-200' : 'text-gray-500 hover:bg-slate-200 hover:text-gray-900',
-                            'group rounded-md py-3 px-4 flex items-center text-sm font-medium'
-                            )}
+                            className={(navData) =>
+                                navData.isActive ? "nav-link bg-lime-300 text-gray-900 " : "nav-link text-gray-500 hover:bg-slate-200 hover:text-gray-900"
+                            }
                         >
                             {item.name}
-                        </Link>
+                        </NavLink>
                     ))}
                 </nav>
             </div>
