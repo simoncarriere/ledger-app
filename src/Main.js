@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import Dashboard from "./Dashboard";
 import Ledger from "./components/Ledger";
 import Reports from "./Reports";
