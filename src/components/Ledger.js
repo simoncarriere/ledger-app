@@ -1,52 +1,54 @@
-import { useState, useEffect } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { useState, useEffect, useContext } from 'react';
+// Context
+import { LedgerContext } from '../contexts/LedgerContext'
+// Components
 import NewTransaction from './NewTransaction';
+// Icons
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 const Ledger = () => {
     
-    const [transactions, setTransactions] = useState([])
-    
-    // Grab ledger from local Storage 
-    useEffect(() => {
-        const localData = JSON.parse(localStorage.getItem("ledger"));
-        if (localData) {
-          setTransactions( prevTransactions => [...prevTransactions, ...localData] ); 
-    }}, [])
+    // const [transactions, setTransactions] = useState([])
+    const [openNewTransaction, setOpenNewTransaction] = useState(false) // Slideout
 
-    // Set updated ledger
-    useEffect(() => {
-            localStorage.setItem('ledger', JSON.stringify(transactions))
-    }, [transactions])
-
-    
-
-    const removeTransaction = (id) => {
-        let newLedger = transactions.filter((transaction) => (
-            transaction.transaction_id !== id
-        ))
-        setTransactions(newLedger)
-    }
-    
-
-    // Slideout
-    const [openNewTransaction, setOpenNewTransaction] = useState(false)
-
+    const {transactions} = useContext(LedgerContext)
 
     const openSlideout = () => {
         setOpenNewTransaction(true)
     }
 
+    // Grab ledger from local Storage 
+    // useEffect(() => {
+    //     const localData = JSON.parse(localStorage.getItem("ledger"));
+    //     if (localData) {
+    //       setTransactions( prevTransactions => [...prevTransactions, ...localData] ); 
+    // }}, [])
+    
+    // // Update ledger from local Storage
+    // useEffect(() => {
+    //     localStorage.setItem('ledger', JSON.stringify(transactions))
+    // }, [transactions])
+
+    // const removeTransaction = (id) => {
+    //     let newLedger = transactions.filter((transaction) => (
+    //         transaction.transaction_id !== id
+    //     ))
+    //     setTransactions(newLedger)
+    // }
+
     return (
-    <div>
+        <div>
         
         {/* Table Heading */}
         <div className="flex items-center justify-between ">
-            <h3 className="text-xl font-medium leading-6 text-gray-900">Recent Transactions</h3>
+            <div className="px-4 sm:px-6 md:px-0">
+                <h1 className="text-2xl font-medium text-gray-900">Transactions</h1>
+            </div>
             <div className="flex mt-3 sm:mt-0 sm:ml-4">
                 <button
                     onClick={() => setOpenNewTransaction(true)}
                     type="button"
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
+                    className="inline-flex items-center px-4 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
                 >
                     New Transaction
                 </button>
@@ -60,7 +62,7 @@ const Ledger = () => {
                     <div className="overflow-hidden md:rounded-lg">
                         {transactions.length > 0 ? (
                             <table className="min-w-full ">
-                                <thead className="bg-slate-100">
+                                <thead className="bg-slate-200">
                                     <tr>
                                         <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-medium text-gray-900 sm:pl-6 hidden xl:table-cell">
                                             <a href="#" className="inline-flex group">
@@ -186,12 +188,10 @@ const Ledger = () => {
         </div>
 
         {/* Slideout */}
-        <NewTransaction openNewTransaction={openNewTransaction} setOpenNewTransaction={setOpenNewTransaction} transactions={transactions} setTransactions={setTransactions}/>
+        <NewTransaction openNewTransaction={openNewTransaction} setOpenNewTransaction={setOpenNewTransaction}/>
     
     </div>
   )
 }
 
 export default Ledger;
-
-

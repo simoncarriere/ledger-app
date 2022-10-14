@@ -1,5 +1,9 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useContext } from 'react'
+// Headless UI
 import { Listbox, Dialog, Transition } from '@headlessui/react'
+// Context
+import { LedgerContext } from '../contexts/LedgerContext'
+// Icons
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronUpDownIcon, XCircleIcon } from '@heroicons/react/20/solid'
 
@@ -28,6 +32,10 @@ const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear
 
 
 const NewTransaction = ({openNewTransaction, setOpenNewTransaction, transactions, setTransactions}) => {
+
+    const {addTransaction} = useContext(LedgerContext)
+
+
 
     const [title, setTitle] = useState('')
     const [amount, setAmount] = useState(0)
@@ -62,12 +70,16 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction, transactions
                 desc: desc,
                 transaction_id: Date.now()
             }
-
-            setTransactions([...transactions, newTransaction])
+            addTransaction(newTransaction)
+            // dispatch({ADD_TRANSACTION, transaction: newTransaction})
+            // setTransactions([...transactions, newTransaction])
+            
+            // Reset & Close Form
             setOpenNewTransaction(false)
-            setTitle('')
-            setAmount(0)
-            setDesc('')
+            resetForm()
+            // setTitle('')
+            // setAmount(0)
+            // setDesc('')
         } else {
             setErrors([...errors, 'Amount must be higher then zero'])
         }
@@ -338,7 +350,7 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction, transactions
                                        </div>
                                     )}                                                
 
-                                    <div className="flex justify-end flex-shrink-0 w-full px-4 py-4 flex-column">
+                                    <div className="flex justify-end px-4 py-4 sm:px-6 flex-column">
                                         <button
                                             type="button"
                                             className="w-full px-4 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"

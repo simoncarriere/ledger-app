@@ -1,35 +1,39 @@
 import { useState } from 'react'
-import { BrowserRouter, Link } from "react-router-dom"
-
+import { BrowserRouter } from "react-router-dom"
 import './App.css';
+
+// Context
+import LedgerContextProvider from './contexts/LedgerContext';
+
 // Components
 import Sidebar from './components/Sidebar';
-import Main from './Main'
 import Topbar from './components/Topbar';
-
-
+import Main from './Main'
 
 function App() {
 
+  // Mobile main nav
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <BrowserRouter>
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
+    <LedgerContextProvider>
+      <BrowserRouter>
+          <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
 
-        {/* Right Section */}             
-        <div className="md:pl-64">
-          <div className="flex flex-col mx-auto md:px-8">
+          {/* Right Section */}             
+          <div className="md:pl-64">
+            <div className="flex flex-col mx-auto md:px-8">
 
-            {/* Search Bar, Notification Icon, and Hamburger Menu */}        
-            <Topbar setSidebarOpen={setSidebarOpen}/>
+              {/* Search Bar, Notification Icon, and Hamburger Menu */}        
+              <Topbar setSidebarOpen={setSidebarOpen}/>
 
-            {/* MAIN CONTENT */}              
-            <Main/>
-            
+              {/* MAIN CONTENT */}              
+              <Main/>
+              
+            </div>
           </div>
-        </div>
       </BrowserRouter>
+    </LedgerContextProvider>
   );
 }
 

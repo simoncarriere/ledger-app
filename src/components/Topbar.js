@@ -1,8 +1,13 @@
+import {useState} from 'react'
+
 import { Bars3BottomLeftIcon, BellIcon } from '@heroicons/react/24/outline'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
 const Topbar = ({setSidebarOpen}) => {
-    return ( 
+
+  const [searchTerm, setSearchTerm] = useState('')
+
+  return ( 
         <div className="sticky top-0 z-10 flex flex-shrink-0 h-16 bg-white border-b border-gray-200">
               <button
                 type="button"
@@ -28,6 +33,8 @@ const Topbar = ({setSidebarOpen}) => {
                         placeholder="Search"
                         type="search"
                         name="search"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                       />
                     </div>
                   </form>
@@ -42,7 +49,7 @@ const Topbar = ({setSidebarOpen}) => {
                   </button>
                 </div>
               </div>
-            </div>
+        </div>
      );
 }
  

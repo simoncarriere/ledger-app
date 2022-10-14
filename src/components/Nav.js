@@ -31,7 +31,7 @@ const Nav = () => {
                             key={item.name}
                             to={item.href}
                             className={(navData) =>
-                                navData.isActive ? "nav-link bg-lime-300 text-gray-900 " : "nav-link text-gray-500 hover:bg-slate-200 hover:text-gray-900"
+                                navData.isActive ? "nav-link bg-lime-300 text-gray-900 " : "nav-link text-gray-500 hover:bg-lime-100 hover:text-gray-900"
                             }
                         >
                             {item.name}
