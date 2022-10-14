@@ -6,7 +6,7 @@ import './App.css';
 import LedgerContextProvider from './contexts/LedgerContext';
 
 // Components
-import Sidebar from './components/Sidebar';
+import Sidenav from './components/Sidenav';
 import Topbar from './components/Topbar';
 import Main from './Main'
 
@@ -18,7 +18,7 @@ function App() {
   return (
     <LedgerContextProvider>
       <BrowserRouter>
-          <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
+          <Sidenav sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
 
           {/* Right Section */}             
           <div className="md:pl-64">

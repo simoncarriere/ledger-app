@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import Nav from './Nav'
 
 
-const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
+const Sidenav = ({sidebarOpen, setSidebarOpen}) => {
 
     return ( 
         <>
@@ -65,7 +65,6 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
                 </Dialog>
             </Transition.Root>
 
-
             {/* Static sidebar for desktop */}
             <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
                 {/* Sidebar component, swap this element with another sidebar if you like */}
@@ -77,4 +76,4 @@ const Sidebar = ({sidebarOpen, setSidebarOpen}) => {
     );
 }
  
-export default Sidebar;
+export default Sidenav;

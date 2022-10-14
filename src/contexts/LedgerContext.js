@@ -6,19 +6,33 @@ export const LedgerContext= createContext()
 const LedgerContextProvider = ({children}) => {
 
     const [transactions, setTransactions] = useState([])
+    const [team, setTeam] = useState([])
+
+
+
+    // Refactor state to use Reducer
     // const [state, dispatch] = useReducer(LedgerReducer, []) //(LedgerReducer, [])
 
-    // Grab ledger from local Storage and set State
+    // Retreive data from local storage and set as state
     useEffect(() => {
-        const localData = JSON.parse(localStorage.getItem("ledger"));
-        if (localData) {
-        setTransactions( prevTransactions => [...prevTransactions, ...localData] ); 
-    }}, [])
+        const localLedger = JSON.parse(localStorage.getItem("ledger"));
+        const localTeam = JSON.parse(localStorage.getItem("team"));
+        if (localLedger) {
+            setTransactions( prevTransactions => [...prevTransactions, ...localLedger]); 
+        }
+        if (localTeam) {
+            setTeam( prevTeam => [...prevTeam, ...localTeam]); 
+        }
+    }, [])
 
-    // Updated ledger from local Storage
+    // Add data to local storage
     useEffect(() => {
-            localStorage.setItem('ledger', JSON.stringify(transactions))
+        localStorage.setItem('ledger', JSON.stringify(transactions))
     }, [transactions])
+
+    useEffect(() => {
+        localStorage.setItem('team', JSON.stringify(team))
+    }, [team])
 
 
     const addTransaction = (newTransaction) => {
@@ -28,10 +42,14 @@ const LedgerContextProvider = ({children}) => {
         // If the id we pass in = to the id from the state, we remove it.
         setTransactions(transactions.filter(transaction => transaction.transaction_id !== id))
     }
+    
+    const addTeamMember = (newTeamMember) => {
+        setTeam([...team, newTeamMember])
+    }
 
 	return (
         // <LedgerContext.Provider value={{...state, dispatch}}>
-        <LedgerContext.Provider value={{transactions, addTransaction, removeTransaction}}>
+        <LedgerContext.Provider value={{transactions, addTransaction, removeTransaction, team, setTeam, addTeamMember}}>
 			{children}
 		</LedgerContext.Provider>
 	)
