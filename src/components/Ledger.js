@@ -5,16 +5,21 @@ import { LedgerContext } from '../contexts/LedgerContext'
 import NewTransaction from './NewTransaction';
 // Icons
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import TransactionDetails from './TransactionDetails';
 
 const Ledger = () => {
     
-    const {transactions} = useContext(LedgerContext)
-    
-    // Slideout
-    const [openNewTransaction, setOpenNewTransaction] = useState(false) 
+    const {transactions, removeTransaction} = useContext(LedgerContext)
 
-    const openSlideout = () => {
-        setOpenNewTransaction(true)
+    const [transactionDetail, setTransactionDetail] = useState('')
+    
+    // Slideouts
+    const [openNewTransaction, setOpenNewTransaction] = useState(false) 
+    const [openTransactionDetails, setOpenTransactionDetails] = useState(false) 
+
+    const openDetailsSlideout = (transaction) => {
+        setTransactionDetail(transaction)
+        setOpenTransactionDetails(true)
     }
 
     return (
@@ -29,7 +34,7 @@ const Ledger = () => {
                     <button
                         onClick={() => setOpenNewTransaction(true)}
                         type="button"
-                        className="inline-flex items-center px-4 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
+                        className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
                     >
                         New Transaction
                     </button>
@@ -56,7 +61,7 @@ const Ledger = () => {
                                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
                                                 <a href="#" className="inline-flex group">
                                                     Title
-                                                    <span className="flex-none ml-2 text-gray-900 bg-gray-200 rounded group-hover:bg-gray-300">
+                                                    <span className="flex-none ml-2 text-gray-900 bg-gray-200 rounded group-hover:bg-slate-300">
                                                         <ChevronDownIcon className="w-5 h-5" aria-hidden="true" />
                                                     </span>
                                                 </a>
@@ -113,7 +118,7 @@ const Ledger = () => {
                             
                                     <tbody className='divide-y divide-slate-200'>
                                     {transactions.map((transaction) => (
-                                        <tr onClick={() => openSlideout()} key={transaction.transaction_id}  className="cursor-pointer hover:bg-slate-100">
+                                        <tr onClick={() => openDetailsSlideout(transaction)} key={transaction.transaction_id}  className="cursor-pointer hover:bg-slate-100">
                                             <td className="hidden py-4 pl-4 pr-3 text-sm font-medium text-gray-900 xl:table-cell whitespace-nowrap sm:pl-6">
                                                 #{transaction.transaction_id}
                                             </td>
@@ -131,7 +136,7 @@ const Ledger = () => {
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.purchased_by}</td>
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.type}</td>
                                             <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                                <a href="#" className="text-gray-800 hover:text-lime-400">
+                                                <a href="#" onClick={() => removeTransaction(transaction.transaction_id)} className="text-gray-800 hover:text-lime-400">
                                                 Edit<span className="sr-only">, {transaction.name}</span>
                                                 </a>
                                             </td>
@@ -170,7 +175,8 @@ const Ledger = () => {
 
             {/* Slideout */}
             <NewTransaction openNewTransaction={openNewTransaction} setOpenNewTransaction={setOpenNewTransaction}/>
-    
+            <TransactionDetails transactionDetail={transactionDetail} openTransactionDetails={openTransactionDetails} setOpenTransactionDetails={setOpenTransactionDetails}/>
+
         </div>
     )
 }

@@ -28,7 +28,7 @@ const Team = () => {
                     <button
                         onClick={() => setOpenNewMember(true)}
                         type="button"
-                        className="inline-flex items-center px-4 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
+                        className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
                     >
                         New Team Member
                     </button>
@@ -45,9 +45,17 @@ const Team = () => {
                                 
                                     <div className="flex items-center px-4 py-4 cursor-pointer sm:px-6 hover:bg-gray-50">
                                         <div className="flex flex-1 min-w-0">
-                                            <div className="flex-shrink-0">
-                                                <img className="w-12 h-12 rounded-full" src={member.imageUrl} alt="" />
-                                            </div>
+                                            {member.imageUrl  ? (
+                                                <div className="flex-shrink-0">
+                                                    <img className="w-12 h-12 rounded-full" src={member.imageUrl} alt="" />
+                                                </div>
+                                            ) : (
+                                                <span className="inline-block w-12 h-12 overflow-hidden bg-gray-100 rounded-full">
+                                                    <svg className="w-full h-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                    </svg>
+                                                </span>
+                                            )}
                                             <div className="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
                                                 <div>
                                                     <p className="text-sm font-medium text-gray-700 truncate">{member.name}</p>
@@ -58,12 +66,12 @@ const Team = () => {
                                                 <div className="hidden md:block">
                                                     <div>
                                                         <p className="text-sm text-gray-900">Spending Limit: {member.limit} </p>
-                                                        <div className='w-full h-2 mt-2 rounded-full bg-slate-200'>
+                                                        <div className='w-full h-1 mt-2 rounded-full bg-slate-200'>
                                                             <div
                                                                 // style={{ width: `${progressPercentage}%`}}
                                                                 style={{ width: '70%' }}
                                                                 className={`h-full  rounded-full ${
-                                                                    70 >= 90 ? 'bg-orange-300' : 'bg-lime-300'}`}>
+                                                                    70 >= 90 ? 'bg-orange-300' : 'bg-lime-400'}`}>
                                                             </div>
                                                         </div>
                                                         {/* <p className="flex items-center mt-2 text-sm text-gray-500">

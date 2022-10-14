@@ -1,5 +1,5 @@
-import { Fragment, useState, useContext } from 'react'
-import { useNavigate } from "react-router-dom";
+import { Fragment, useState, useContext, useEffect } from 'react'
+import { Link } from "react-router-dom";
 
 // Headless UI
 import { Listbox, Dialog, Transition } from '@headlessui/react'
@@ -7,7 +7,8 @@ import { Listbox, Dialog, Transition } from '@headlessui/react'
 import { LedgerContext } from '../contexts/LedgerContext'
 // Icons
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { ChevronUpDownIcon, XCircleIcon } from '@heroicons/react/20/solid'
+import { ExclamationTriangleIcon, ChevronUpDownIcon, XCircleIcon } from '@heroicons/react/20/solid'
+
 
 const categories = [
     { id: 1, name: 'Office' },
@@ -30,12 +31,10 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
 
     const {addTransaction, team} = useContext(LedgerContext)
 
-    const navigate = useNavigate();
-
     const [title, setTitle] = useState('')
     const [amount, setAmount] = useState(0)
     const [selectedCategory, setSelectedCategory] = useState(categories[0])
-    const [selectedPerson, setSelectedPerson] = useState(team[0])
+    const [selectedPerson, setSelectedPerson] = useState()
     const [desc, setDesc] = useState('')
 
     const [errors, setErrors] = useState([])
@@ -50,9 +49,15 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
         setErrors([])
     }
 
+    // A temporary fix to remove bug which wasnt loading state from team and declaring as undifined
+    // Need to find cleaner fix
+    useEffect(() => {
+        setSelectedPerson(team[0])
+    }, [team])
+    
+
     const newTransaction = (e) => {
         e.preventDefault()
-       
         if (amount > 0){
             let newTransaction = {
                 title: title, 
@@ -124,12 +129,14 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                 </Transition.Child>
                                 
                                 {/* Form */}
-                                <div className="flex flex-col h-full py-6 overflow-y-scroll bg-white shadow-xl jus">
+                                <div className="flex flex-col h-full py-6 overflow-y-scroll bg-white shadow-xl">
 
                                     {/* Form Title */}
                                     <div className="px-4 sm:px-6">
                                         <Dialog.Title className="text-lg font-medium text-gray-900">Add New Transaction</Dialog.Title>
                                     </div>
+
+                                    
 
                                     {/* Form */}
                                     <form onSubmit={newTransaction} className="flex flex-col justify-between h-full ">
@@ -237,7 +244,9 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                         {/* Purchased By */}
                                                         <div>
                                                             <h3 className="text-sm font-medium text-gray-900">Purchased By</h3>
-                                                            {team.length > 0 ? (
+                                                                {(team.length >  0 || selectedPerson === undefined)  ? (
+
+                                                                                    
                                                                 <Listbox value={selectedPerson} onChange={setSelectedPerson}>
                                                                     {({ open }) => (
                                                                         <>
@@ -261,9 +270,10 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                                                 leaveTo="opacity-0"
                                                                             >
                                                                             <Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                                                
                                                                                 {team.map((person) => (
                                                                                         <Listbox.Option
-                                                                                            key={person.name}
+                                                                                            key={person.email}
                                                                                             className={({ active }) =>
                                                                                             classNames(
                                                                                                 active ? 'text-gray-800 bg-lime-300' : 'text-gray-600',
@@ -294,12 +304,20 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                                         </>
                                                                     )}
                                                                 </Listbox>
-                                                            ) : (
-                                                                // No Team Member 
-                                                                <p className="cursor-pointer text-lime-300" onClick={() => navigate('/team')}>
-                                                                Create Team Member
-                                                                </p> 
-                                                            )}
+                                                                ) : (
+                                                                    <div className="mt-1">
+                                                                        <input
+                                                                        type="text"
+                                                                        name="undifinedteam"
+                                                                        id="undifinedteam"
+                                                                        defaultValue="No Team Members"
+                                                                        disabled
+                                                                        className="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 sm:text-sm"
+                                                                        placeholder="No Team Members"
+                                                                        />
+                                                                    </div>
+                                                                )}
+                                                          
                                                                                 
                                                         </div>
 
@@ -320,6 +338,29 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                             </div>
                                                         </div>
                                                         
+                                                        {/* Scenario no team members */}
+                                                        {team.length === 0 ? (
+                                                      
+                                                          
+                                                            <div className="p-4 bg-yellow-50">
+                                                                <div className="flex">
+                                                                <div className="flex-shrink-0">
+                                                                    <ExclamationTriangleIcon className="w-5 h-5 text-yellow-400" aria-hidden="true" />
+                                                                </div>
+                                                                <div className="ml-3">
+                                                                    <p className="text-sm text-yellow-700">
+                                                                    You have no team members.{' '}
+                                                                    <Link to="/team" className="font-medium text-yellow-700 underline hover:text-yellow-600">
+                                                                        Create a team member to get started.
+                                                                    </Link>
+                                                                    </p>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                        ) :(
+                                                            null
+                                                        )}
+
                                                         {errors.length > 0 && (
                                                             <div className="p-4 rounded-md bg-red-50">
                                                                 <div className="flex">
@@ -353,14 +394,27 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                             >
                                                 Cancel
                                             </button>
-                                            <button
-                                                type="submit"
-                                                className="justify-center w-full px-4 py-4 ml-4 text-sm font-medium text-gray-900 border border-transparent rounded-md shadow-sm bg-lime-300 hover:bg-lime-200 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
-                                            >
-                                                Create
-                                            </button>
+                                            {team.length !== 0 ? (
+                                                <button
+                                                    type="submit"
+                                                    className="justify-center w-full px-4 py-4 ml-4 text-sm font-medium text-gray-900 border border-transparent rounded-md shadow-sm bg-lime-300 hover:bg-lime-200 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
+                                                >
+                                                    Create
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    type="button"
+                                                    disabled
+                                                    className="justify-center w-full px-4 py-4 ml-4 text-sm font-medium border border-transparent rounded-md shadow-sm bg-slate-200 text-slate-400 "
+                                                >
+                                                    Create
+                                                </button>
+                                            )}
                                         </div>
                                     </form>
+
+                                                                                    
+
                                 </div>
                             </Dialog.Panel>
                             </Transition.Child>
