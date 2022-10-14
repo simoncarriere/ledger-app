@@ -39,7 +39,7 @@ const Team = () => {
             <div className="mt-6">
                 {team.length > 0 ? (
                     <div className="overflow-hidden bg-white shadow sm:rounded-md">
-                        <ul role="list" className="divide-y divide-gray-200">
+                        <ul className="divide-y divide-gray-200">
                             {team.map((member) => (
                             <li key={member.email}>
                                 
