@@ -193,7 +193,7 @@ const NewTeamMember = ({openNewMember, setOpenNewMember}) => {
                                                                 <div className="ml-3">
                                                                     <h3 className="text-sm font-medium text-red-800">There were {errors.length} error with your submission</h3>
                                                                     <div className="mt-2 text-sm text-red-700">
-                                                                        <ul role="list" className="pl-5 space-y-1 list-disc">
+                                                                        <ul className="pl-5 space-y-1 list-disc">
                                                                             {errors.map((i) => (
                                                                                 <li key={i}>{i}</li>
                                                                             ))}   
