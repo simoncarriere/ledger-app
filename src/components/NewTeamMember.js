@@ -168,7 +168,7 @@ const NewTeamMember = ({openNewMember, setOpenNewMember}) => {
                                                         {/* Limit */}
                                                         <div>
                                                             <label htmlFor="limit" className="block text-sm font-medium text-gray-900">
-                                                                Limit
+                                                                Spending Limit
                                                             </label>
                                                             <div className="mt-1">
                                                                 <input

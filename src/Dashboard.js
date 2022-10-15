@@ -1,4 +1,4 @@
-import Ledger from "./components/Ledger";
+import Ledger from "./Ledger";
 
 const Dashboard = () => {
     return ( 

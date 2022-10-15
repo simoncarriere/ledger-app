@@ -69,9 +69,9 @@ const Team = () => {
                                                         <div className='w-full h-1 mt-2 rounded-full bg-slate-200'>
                                                             <div
                                                                 // style={{ width: `${progressPercentage}%`}}
-                                                                style={{ width: '70%' }}
+                                                                style={{ width: '97%' }}
                                                                 className={`h-full  rounded-full ${
-                                                                    70 >= 90 ? 'bg-orange-300' : 'bg-lime-400'}`}>
+                                                                    97 >= 90 ? 'bg-orange-300' : 'bg-gray-800'}`}>
                                                             </div>
                                                         </div>
                                                         {/* <p className="flex items-center mt-2 text-sm text-gray-500">

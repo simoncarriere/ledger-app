@@ -1,15 +1,15 @@
 import { useState, useContext } from 'react';
 // Context
-import { LedgerContext } from '../contexts/LedgerContext'
+import { LedgerContext } from './contexts/LedgerContext'
 // Components
-import NewTransaction from './NewTransaction';
+import NewTransaction from './components/NewTransaction';
 // Icons
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import TransactionDetails from './TransactionDetails';
+import TransactionDetails from './components/TransactionDetails';
 
 const Ledger = () => {
     
-    const {transactions, removeTransaction} = useContext(LedgerContext)
+    const {transactions} = useContext(LedgerContext)
 
     const [transactionDetail, setTransactionDetail] = useState('')
     
@@ -136,7 +136,7 @@ const Ledger = () => {
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.purchased_by}</td>
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.type}</td>
                                             <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                                <p onClick={() => removeTransaction(transaction.transaction_id)} className="text-gray-800 hover:text-lime-400">
+                                                <p className="text-gray-800 hover:text-lime-400">
                                                 Edit<span className="sr-only">, {transaction.name}</span>
                                                 </p>
                                             </td>

@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import Dashboard from "./Dashboard";
-import Ledger from "./components/Ledger";
+import Ledger from "./Ledger";
 import Reports from "./Reports";
 import Team from "./Team";
 

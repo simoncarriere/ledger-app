@@ -49,7 +49,6 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
         setErrors([])
     }
 
-    console.log(team.length)
 
     // A temporary fix to remove bug which wasnt loading state from team and declaring as undifined
     // Need to find cleaner fix

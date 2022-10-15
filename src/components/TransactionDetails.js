@@ -1,9 +1,21 @@
+import { useContext } from 'react';
+// Context
+import { LedgerContext } from '../contexts/LedgerContext'
+
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export default function TransactionDetails({openTransactionDetails, setOpenTransactionDetails, transactionDetail}) {
   
+    const {removeTransaction} = useContext(LedgerContext)
+    
+
+    function deleteTransaction(id)  {
+        // console.log(id)
+        setOpenTransactionDetails(false)
+        removeTransaction(id)
+    }
 
     return (
     <Transition.Root show={openTransactionDetails} as={Fragment}>
@@ -67,7 +79,7 @@ export default function TransactionDetails({openTransactionDetails, setOpenTrans
                                         </div>
                                     </div>
 
-                                    <div className='flex flex-col items-center p-8 my-4 full-w bg-lime-100'>
+                                    <div className='flex flex-col items-center p-8 my-4 full-w bg-lime-200'>
                                         <h2 className='text-2xl tracking-wide text-slate-800'>${transactionDetail.amount}.00 CAD</h2>
                                         {/* <p className='mt-1 text-slate-400'>{transactionDetail.date}</p> */}
                                     </div>
@@ -90,8 +102,8 @@ export default function TransactionDetails({openTransactionDetails, setOpenTrans
                                         </dl>
                                     </div>
                                     <div className='mt-8'>
-                                            <h3 className="font-medium text-gray-900">Description</h3>
-                                            <div className="flex items-center justify-between mt-2">
+                                        <h3 className="font-medium text-gray-900">Description</h3>
+                                        <div className="flex items-center justify-between mt-3">
                                             <div className="text-sm italic text-gray-500">
                                                 {transactionDetail.desc ? (
                                                     <p>{transactionDetail.desc}</p>
@@ -99,30 +111,26 @@ export default function TransactionDetails({openTransactionDetails, setOpenTrans
                                                     <p>No description</p>
                                                 )}
                                             </div>
-                                            <button
-                                                type="button"
-                                                className="flex items-center justify-center w-8 h-8 -mr-2 text-gray-400 bg-white rounded-full hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                            >
-                                              
-                                                <span className="sr-only">Add description</span>
-                                            </button>
+                                           
                                         </div>
                                     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                    
+                                    <div className="flex ">
+                                        <button
+                                            type="button"
+                                            className="w-full px-4 py-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            onClick={() => deleteTransaction(transactionDetail.transaction_id)}
+                                            type="button"
+                                            className="justify-center w-full px-4 py-4 ml-4 text-sm font-medium text-gray-100 bg-gray-900 border border-transparent rounded-md shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2"
+                                        >
+                                            Delete
+                                        </button>
+                                      
+                                    </div>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
