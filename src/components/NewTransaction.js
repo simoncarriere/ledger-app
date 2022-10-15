@@ -49,6 +49,8 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
         setErrors([])
     }
 
+    console.log(team.length)
+
     // A temporary fix to remove bug which wasnt loading state from team and declaring as undifined
     // Need to find cleaner fix
     useEffect(() => {
@@ -81,6 +83,8 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
     }
 
     return ( 
+        // selectedPerson && (
+        
         <Transition.Root show={openNewTransaction} as={Fragment}>
             <Dialog as="div" className="relative z-10 " onClose={resetForm}>
                 <Transition.Child
@@ -244,66 +248,64 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                         {/* Purchased By */}
                                                         <div>
                                                             <h3 className="text-sm font-medium text-gray-900">Purchased By</h3>
-                                                                {(team.length >  0 || selectedPerson === undefined)  ? (
+                                                                {team.length  ? (               
+                                                                    <Listbox value={selectedPerson} onChange={setSelectedPerson}>
+                                                                        {({ open }) => (
+                                                                            <>
+                                                                        
+                                                                            <div className="relative mt-1">
+                                                                                <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-default focus:border-lime-500 focus:outline-none focus:ring-1 focus:ring-lime-500 sm:text-sm">
+                                                                                <span className="inline-flex w-full truncate">
+                                                                                    <span className="truncate">{selectedPerson.name}</span>
+                                                                                    <span className="ml-2 text-gray-500 truncate">{selectedPerson.username}</span>
+                                                                                </span>
+                                                                                <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                                                    <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                                                                                </span>
+                                                                                </Listbox.Button>
 
+                                                                                <Transition
+                                                                                    show={open}
+                                                                                    as={Fragment}
+                                                                                    leave="transition ease-in duration-100"
+                                                                                    leaveFrom="opacity-100"
+                                                                                    leaveTo="opacity-0"
+                                                                                >
+                                                                                <Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                                                                     
-                                                                <Listbox value={selectedPerson} onChange={setSelectedPerson}>
-                                                                    {({ open }) => (
-                                                                        <>
-                                                                    
-                                                                        <div className="relative mt-1">
-                                                                            <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-default focus:border-lime-500 focus:outline-none focus:ring-1 focus:ring-lime-500 sm:text-sm">
-                                                                            <span className="inline-flex w-full truncate">
-                                                                                <span className="truncate">{selectedPerson.name}</span>
-                                                                                <span className="ml-2 text-gray-500 truncate">{selectedPerson.username}</span>
-                                                                            </span>
-                                                                            <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                                                                                <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                                                                            </span>
-                                                                            </Listbox.Button>
+                                                                                    {team.map((person) => (
+                                                                                            <Listbox.Option
+                                                                                                key={person.email}
+                                                                                                className={({ active }) =>
+                                                                                                classNames(
+                                                                                                    active ? 'text-gray-800 bg-lime-300' : 'text-gray-600',
+                                                                                                    'relative cursor-default select-none py-2 pl-3 pr-9'
+                                                                                                )
+                                                                                                }
+                                                                                                value={person}
+                                                                                            >
+                                                                                                {({ active }) => (
+                                                                                                <>
+                                                                                                    <div className="flex">
+                                                                                                        <span>
+                                                                                                            {person.name}
+                                                                                                        </span>
+                                                                                                        <span className={classNames(active ? 'text-gray-600' : 'text-gray-500', 'ml-2 truncate')}>
+                                                                                                            {person.email}
+                                                                                                        </span>
+                                                                                                    </div>
 
-                                                                            <Transition
-                                                                                show={open}
-                                                                                as={Fragment}
-                                                                                leave="transition ease-in duration-100"
-                                                                                leaveFrom="opacity-100"
-                                                                                leaveTo="opacity-0"
-                                                                            >
-                                                                            <Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                                                
-                                                                                {team.map((person) => (
-                                                                                        <Listbox.Option
-                                                                                            key={person.email}
-                                                                                            className={({ active }) =>
-                                                                                            classNames(
-                                                                                                active ? 'text-gray-800 bg-lime-300' : 'text-gray-600',
-                                                                                                'relative cursor-default select-none py-2 pl-3 pr-9'
-                                                                                            )
-                                                                                            }
-                                                                                            value={person}
-                                                                                        >
-                                                                                            {({ active }) => (
-                                                                                            <>
-                                                                                                <div className="flex">
-                                                                                                    <span>
-                                                                                                        {person.name}
-                                                                                                    </span>
-                                                                                                    <span className={classNames(active ? 'text-gray-600' : 'text-gray-500', 'ml-2 truncate')}>
-                                                                                                        {person.email}
-                                                                                                    </span>
-                                                                                                </div>
-
-                                                                                            
-                                                                                            </>
-                                                                                            )}
-                                                                                        </Listbox.Option>
-                                                                                ))}
-                                                                            </Listbox.Options>
-                                                                            </Transition>
-                                                                        </div>
-                                                                        </>
-                                                                    )}
-                                                                </Listbox>
+                                                                                                
+                                                                                                </>
+                                                                                                )}
+                                                                                            </Listbox.Option>
+                                                                                    ))}
+                                                                                </Listbox.Options>
+                                                                                </Transition>
+                                                                            </div>
+                                                                            </>
+                                                                        )}
+                                                                    </Listbox>
                                                                 ) : (
                                                                     <div className="mt-1">
                                                                         <input
@@ -312,7 +314,7 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                                         id="undifinedteam"
                                                                         defaultValue="No Team Members"
                                                                         disabled
-                                                                        className="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 sm:text-sm"
+                                                                        className="block w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500 sm:text-sm"
                                                                         placeholder="No Team Members"
                                                                         />
                                                                     </div>
@@ -423,6 +425,7 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                 </div>
             </Dialog>
         </Transition.Root>
+        // )
      );
 }
  
