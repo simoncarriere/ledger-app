@@ -51,23 +51,23 @@ const Ledger = () => {
                                     <thead className="bg-slate-100">
                                         <tr>
                                             <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-medium text-gray-900 sm:pl-6 hidden xl:table-cell">
-                                                <a href="#" className="inline-flex group">
+                                                <p className="inline-flex group">
                                                     Transaction ID
                                                     <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
                                                         <ChevronDownIcon className="w-5 h-5" aria-hidden="true" />
                                                     </span>
-                                                </a>
+                                                </p>
                                             </th>
                                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
-                                                <a href="#" className="inline-flex group">
+                                                <p className="inline-flex group">
                                                     Title
                                                     <span className="flex-none ml-2 text-gray-900 bg-gray-200 rounded group-hover:bg-slate-300">
                                                         <ChevronDownIcon className="w-5 h-5" aria-hidden="true" />
                                                     </span>
-                                                </a>
+                                                </p>
                                             </th>
                                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900 hidden lg:table-cell">
-                                                <a href="#" className="inline-flex group">
+                                                <p className="inline-flex group">
                                                     Amount
                                                     <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
                                                         <ChevronDownIcon
@@ -75,10 +75,10 @@ const Ledger = () => {
                                                             aria-hidden="true"
                                                         />
                                                     </span>
-                                                </a>
+                                                </p>
                                             </th>
                                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900 hidden lg:table-cell">
-                                                <a href="#" className="inline-flex group">
+                                                <p className="inline-flex group">
                                                     Date
                                                     <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
                                                         <ChevronDownIcon
@@ -86,10 +86,10 @@ const Ledger = () => {
                                                             aria-hidden="true"
                                                         />
                                                     </span>
-                                                </a>
+                                                </p>
                                             </th>
                                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
-                                            <a href="#" className="inline-flex group">
+                                            <p className="inline-flex group">
                                                 Purchased By
                                                 <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
                                                 <ChevronDownIcon
@@ -97,10 +97,10 @@ const Ledger = () => {
                                                     aria-hidden="true"
                                                 />
                                                 </span>
-                                            </a>
+                                            </p>
                                             </th>
                                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
-                                                <a href="#" className="inline-flex group">
+                                                <p className="inline-flex group">
                                                     Type
                                                     <span className="flex-none invisible ml-2 text-gray-400 rounded group-hover:visible group-focus:visible">
                                                         <ChevronDownIcon
@@ -108,7 +108,7 @@ const Ledger = () => {
                                                             aria-hidden="true"
                                                         />
                                                     </span>
-                                                </a>
+                                                </p>
                                             </th>
                                             <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                                 <span className="sr-only">Edit</span>
@@ -136,9 +136,9 @@ const Ledger = () => {
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.purchased_by}</td>
                                             <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">{transaction.type}</td>
                                             <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                                                <a href="#" onClick={() => removeTransaction(transaction.transaction_id)} className="text-gray-800 hover:text-lime-400">
+                                                <p onClick={() => removeTransaction(transaction.transaction_id)} className="text-gray-800 hover:text-lime-400">
                                                 Edit<span className="sr-only">, {transaction.name}</span>
-                                                </a>
+                                                </p>
                                             </td>
                                         </tr>
                                     ))}
