@@ -13,7 +13,7 @@ const Main = () => {
                 {/* Main */}
                 <div className="px-4 sm:px-6 md:px-0">
                     <Routes>
-                        <Route path="dashboard" element={<Dashboard/>}/>
+                        <Route path="/" element={<Dashboard/>}/>
                         <Route path="ledger" element={<Ledger />}/>
                         <Route path="team" element={<Team />}/>
                         <Route path="reports" element={<Reports />}/>

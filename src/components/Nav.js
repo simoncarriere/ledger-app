@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 
 const navigation = [
-    { name: 'Dashboard', href: 'dashboard' },
+    { name: 'Dashboard', href: '/' },
     { name: 'Team', href: 'team' },
     { name: 'Ledger', href: 'ledger' },
     // { name: 'Calendar', href: '#' },
