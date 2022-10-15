@@ -2,10 +2,10 @@ import { NavLink } from "react-router-dom"
 
 const navigation = [
     { name: 'Dashboard', href: '/' },
-    { name: 'Team', href: 'team' },
-    { name: 'Ledger', href: 'ledger' },
+    { name: 'Team', href: '/team' },
+    { name: 'Ledger', href: '/ledger' },
     // { name: 'Calendar', href: '#' },
-    { name: 'Reports', href: 'reports' },
+    { name: 'Reports', href: '/reports' },
 ]
 
 const Nav = () => {
@@ -22,6 +22,7 @@ const Nav = () => {
                 <nav className="flex-1 px-4 pb-4 space-y-1">
                     {navigation.map((item) => (
                         <NavLink
+                        end
                             key={item.name}
                             to={item.href}
                             className={(navData) =>
