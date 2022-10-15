@@ -8,12 +8,6 @@ const navigation = [
     { name: 'Reports', href: 'reports' },
 ]
 
-
-  
-function classNames(...classes) {
-   return classes.filter(Boolean).join(' ')
-}
-
 const Nav = () => {
     return ( 
         <>
