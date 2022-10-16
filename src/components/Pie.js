@@ -39,7 +39,9 @@ export function PieChart() {
     if (chartData) {
         return (
             chartData && chartData.labels.length > 0 ? (
-                <Pie data={chartData} options={{ maintainAspectRatio: false }} height="200px" width="200px"/>
+                <div>
+                    <Pie data={chartData} options={{ maintainAspectRatio: false }} height="200px" width="200px"/>
+                </div>
             ) : (
                 <p>No Pie</p>
             )

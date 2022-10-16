@@ -1,8 +1,6 @@
 import {useState, useContext} from 'react'
 // Context
 import { LedgerContext } from './contexts/LedgerContext'
-// Icons
-import { EllipsisHorizontalIcon} from '@heroicons/react/20/solid'
 // Components
 import NewTeamMember from './components/NewTeamMember';
 
@@ -42,7 +40,7 @@ const Team = () => {
                             <li key={member.email}>
                                 
                                     <div className="flex items-center px-4 py-4 cursor-pointer sm:px-6 hover:bg-gray-50">
-                                        <div className="flex flex-1 min-w-0">
+                                        <div className="flex flex-1 min-w-0 ju">
                                             {member.imageUrl  ? (
                                                 <div className="flex-shrink-0">
                                                     <img className="w-12 h-12 rounded-full" src={member.imageUrl} alt="" />
@@ -54,7 +52,7 @@ const Team = () => {
                                                     </svg>
                                                 </span>
                                             )}
-                                            <div className="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
+                                            <div className="items-center flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4 ">
                                                 <div>
                                                     <p className="text-sm font-medium text-gray-700 truncate">{member.name}</p>
                                                     <p className="flex items-center mt-2 text-sm text-gray-400">
@@ -63,17 +61,22 @@ const Team = () => {
                                                 </div>
                                                 <div className="hidden md:block">
                                                     <div>
-                                                        <p className="text-sm text-gray-900">Spending Limit: {member.totalSpent}/{member.limit} </p>
+                                                        <div className="flex items-center justify-between">
+                                                            <p className="text-sm text-gray-900">Spending Limit: {member.percentageSpent}%</p>
+                                                            <p className="text-xs text-gray-600">${member.totalSpent} {' '} /{' '}${member.limit}{' '}</p>
+                                                        </div>
                                                         {member.totalSpent === 0 ? (
                                                             <p className='mt-2 text-sm text-gray-500'>No Transactions</p>
                                                         ) : (
 
                                                             <div className='w-full h-2 mt-3 rounded-full bg-slate-200'>
                                                                 <div
-                                                                    style={{ width: `${member.percentageSpent}%`}}
+                                                                    // style={{ width: `${member.percentageSpent}%`}}
+                                                                    style={{ width: member.percentageSpent >= 100 ? '100%' :  `${member.percentageSpent}%`}}
+
                                                                     // style={{ width: '50%' }}
                                                                     className={`h-full  rounded-full ${
-                                                                        member.percentageSpent >= 90 ? 'bg-orange-300' : 'bg-slate-600'}`}>
+                                                                        member.percentageSpent >= 100 ? 'bg-red-400' : 'bg-lime-400'}`}>
                                                                 </div>
                                                             </div>
                                                         )}
@@ -81,9 +84,7 @@ const Team = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <EllipsisHorizontalIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                                        </div>
+                                      
                                     </div>
                                 
                             </li>
