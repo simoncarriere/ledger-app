@@ -12,7 +12,6 @@ export default function TransactionDetails({openTransactionDetails, setOpenTrans
     
 
     function deleteTransaction(id)  {
-        // console.log(id)
         setOpenTransactionDetails(false)
         removeTransaction(id)
     }

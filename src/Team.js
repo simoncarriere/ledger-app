@@ -1,20 +1,55 @@
-import {useState, useContext} from 'react'
+import {useState, useContext, useEffect} from 'react'
 // Context
 import { LedgerContext } from './contexts/LedgerContext'
 // Icons
 import { EllipsisHorizontalIcon} from '@heroicons/react/20/solid'
-
 // Components
 import NewTeamMember from './components/NewTeamMember';
 
 
 
 const Team = () => {
+    
+    const {team, transactions} = useContext(LedgerContext)
 
+    const [teamWithSpent, setTeamWithSpent] = useState([])
     const [openNewMember, setOpenNewMember] = useState(false)
 
-    const {team} = useContext(LedgerContext)
 
+
+    // Calculate each team members total amount spent and udpate state
+    useEffect(() => {
+        
+        // 1. Loop through each team member
+        const MembersSpent = team.map((member)=> {
+    
+            
+            // 2. Filter their associated transactions
+            let membersTransactions = transactions.filter(transaction => transaction.purchased_by === member.name)
+            
+
+            // 3. Grab the amount spent of each transaction and convert value to a number (localstorage returns amount as string)
+            const transactionsAmount = membersTransactions.map(transaction => {
+              return Number(transaction.amount);
+            });
+
+
+            // 4. Calculate total amount spent & % spent
+            let totalSpent = transactionsAmount.reduce((currentTotal, transactionAmount) => {
+                return transactionAmount + currentTotal
+            }, 0)  // Starting point 
+            let percentageSpent = (totalSpent / member.limit * 100)
+            
+            
+            // 5. Add total to members state
+            return({...member, totalSpent: totalSpent, percentageSpent: percentageSpent}) 
+
+        })
+        setTeamWithSpent(MembersSpent)
+
+    }, [team, transactions])
+
+    // console.log(teamWithSpent)
 
     return ( 
         <>
@@ -37,10 +72,11 @@ const Team = () => {
             
             {/* Table */}
             <div className="mt-6">
-                {team.length > 0 ? (
+                {team && teamWithSpent.length > 0 ? (
+
                     <div className="overflow-hidden bg-white shadow sm:rounded-md">
                         <ul className="divide-y divide-gray-200">
-                            {team.map((member) => (
+                            {teamWithSpent.map((member) => (
                             <li key={member.email}>
                                 
                                     <div className="flex items-center px-4 py-4 cursor-pointer sm:px-6 hover:bg-gray-50">
@@ -66,18 +102,14 @@ const Team = () => {
                                                 <div className="hidden md:block">
                                                     <div>
                                                         <p className="text-sm text-gray-900">Spending Limit: {member.limit} </p>
-                                                        <div className='w-full h-1 mt-2 rounded-full bg-slate-200'>
+                                                        <div className='w-full h-2 mt-2 rounded-full bg-slate-200'>
                                                             <div
-                                                                // style={{ width: `${progressPercentage}%`}}
-                                                                style={{ width: '97%' }}
+                                                                style={{ width: `${member.percentageSpent}%`}}
+                                                                // style={{ width: '50%' }}
                                                                 className={`h-full  rounded-full ${
-                                                                    97 >= 90 ? 'bg-orange-300' : 'bg-gray-800'}`}>
+                                                                    member.percentageSpent >= 90 ? 'bg-orange-300' : 'bg-lime-400'}`}>
                                                             </div>
                                                         </div>
-                                                        {/* <p className="flex items-center mt-2 text-sm text-gray-500">
-                                                            <CheckCircleIcon className="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400" aria-hidden="true" />
-                                                            {application.stage}
-                                                        </p> */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -92,7 +124,7 @@ const Team = () => {
                         </ul>
                     </div>
                 ) : (
-                    // Empty State
+                    // Empty Team State
                     <div className="py-8 text-center border-t border-slate-200 ">
 
                         <svg

@@ -16,7 +16,7 @@ const NewTeamMember = ({openNewMember, setOpenNewMember}) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [imageUrl, setImageUrl] = useState('')
-    const [limit, setLimit] = useState(1000)
+    const [limit, setLimit] = useState(0)
     const [errors, setErrors] = useState([])
 
     const resetForm = () => {
@@ -24,7 +24,7 @@ const NewTeamMember = ({openNewMember, setOpenNewMember}) => {
         setName('')
         setEmail('')
         setImageUrl('')
-        setLimit(1000)
+        setLimit(0)
         setErrors([])
     }
 
@@ -36,7 +36,8 @@ const NewTeamMember = ({openNewMember, setOpenNewMember}) => {
                 name: name, 
                 email: email,
                 imageUrl: imageUrl,
-                limit:limit
+                limit:limit,
+                totalSpent: 0
             }
             addTeamMember(newTeamMember)
             
