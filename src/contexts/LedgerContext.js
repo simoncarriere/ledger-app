@@ -38,40 +38,40 @@ const LedgerContextProvider = ({children}) => {
 
 
 
-// Calculate each team members total amount spent and udpate state
-useEffect(() => {
+    // Calculate each team members total amount spent and udpate state
+    useEffect(() => {
 
-        
-    // 1. Loop through each team member
-    const MembersSpent = team.map((member)=> {
+        if (team){
 
-        
-        // 2. Filter their associated transactions
-        let membersTransactions = transactions.filter(transaction => transaction.purchased_by === member.name)
-        
+            // 1. Loop through each team member
+            const MembersSpent = team.map((member)=> {
+                
+                // 2. Filter their associated transactions
+                let membersTransactions = transactions.filter(transaction => transaction.purchased_by === member.name)
+    
+                // 3. Grab the amount spent of each transaction and convert value to a number (localstorage returns amount as string)
+                const transactionsAmount = membersTransactions.map(transaction => {
+                return Number(transaction.amount);
+                });
+    
+                // 4. Calculate total amount spent & % spent
+                let totalSpent = transactionsAmount.reduce((currentTotal, transactionAmount) => {
+                    return transactionAmount + currentTotal
+                }, 0)  // Starting point 
+                let percentageSpent = (totalSpent / member.limit * 100)
+                
+                // 5. Add total to members state
+                return({...member, totalSpent: totalSpent, percentageSpent: percentageSpent}) 
+    
+            })
 
-        // 3. Grab the amount spent of each transaction and convert value to a number (localstorage returns amount as string)
-        const transactionsAmount = membersTransactions.map(transaction => {
-          return Number(transaction.amount);
-        });
+            if(team.length > 0){
+                setTeam(MembersSpent)
+            }
+        }
 
 
-        // 4. Calculate total amount spent & % spent
-        let totalSpent = transactionsAmount.reduce((currentTotal, transactionAmount) => {
-            return transactionAmount + currentTotal
-        }, 0)  // Starting point 
-        let percentageSpent = (totalSpent / member.limit * 100)
-        
-        
-        // 5. Add total to members state
-        return({...member, totalSpent: totalSpent, percentageSpent: percentageSpent}) 
-
-    })
-    if(team.length > 0){
-        setTeam(MembersSpent)
-    }
-
-}, [transactions])
+    }, [transactions])
 
 
 
