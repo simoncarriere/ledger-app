@@ -1,4 +1,4 @@
-import {useState, useContext, useEffect} from 'react'
+import {useState, useContext} from 'react'
 // Context
 import { LedgerContext } from './contexts/LedgerContext'
 // Icons
@@ -10,46 +10,8 @@ import NewTeamMember from './components/NewTeamMember';
 
 const Team = () => {
     
-    const {team, transactions} = useContext(LedgerContext)
-
-    const [teamWithSpent, setTeamWithSpent] = useState([])
+    const {team} = useContext(LedgerContext)
     const [openNewMember, setOpenNewMember] = useState(false)
-
-
-
-    // Calculate each team members total amount spent and udpate state
-    useEffect(() => {
-        
-        // 1. Loop through each team member
-        const MembersSpent = team.map((member)=> {
-    
-            
-            // 2. Filter their associated transactions
-            let membersTransactions = transactions.filter(transaction => transaction.purchased_by === member.name)
-            
-
-            // 3. Grab the amount spent of each transaction and convert value to a number (localstorage returns amount as string)
-            const transactionsAmount = membersTransactions.map(transaction => {
-              return Number(transaction.amount);
-            });
-
-
-            // 4. Calculate total amount spent & % spent
-            let totalSpent = transactionsAmount.reduce((currentTotal, transactionAmount) => {
-                return transactionAmount + currentTotal
-            }, 0)  // Starting point 
-            let percentageSpent = (totalSpent / member.limit * 100)
-            
-            
-            // 5. Add total to members state
-            return({...member, totalSpent: totalSpent, percentageSpent: percentageSpent}) 
-
-        })
-        setTeamWithSpent(MembersSpent)
-
-    }, [team, transactions])
-
-    // console.log(teamWithSpent)
 
     return ( 
         <>
@@ -72,11 +34,11 @@ const Team = () => {
             
             {/* Table */}
             <div className="mt-6">
-                {team && teamWithSpent.length > 0 ? (
+                {team && team.length > 0 ? (
 
                     <div className="overflow-hidden bg-white shadow sm:rounded-md">
                         <ul className="divide-y divide-gray-200">
-                            {teamWithSpent.map((member) => (
+                            {team.map((member) => (
                             <li key={member.email}>
                                 
                                     <div className="flex items-center px-4 py-4 cursor-pointer sm:px-6 hover:bg-gray-50">
@@ -101,15 +63,20 @@ const Team = () => {
                                                 </div>
                                                 <div className="hidden md:block">
                                                     <div>
-                                                        <p className="text-sm text-gray-900">Spending Limit: {member.limit} </p>
-                                                        <div className='w-full h-2 mt-2 rounded-full bg-slate-200'>
-                                                            <div
-                                                                style={{ width: `${member.percentageSpent}%`}}
-                                                                // style={{ width: '50%' }}
-                                                                className={`h-full  rounded-full ${
-                                                                    member.percentageSpent >= 90 ? 'bg-orange-300' : 'bg-lime-400'}`}>
+                                                        <p className="text-sm text-gray-900">Spending Limit: {member.totalSpent}/{member.limit} </p>
+                                                        {member.totalSpent === 0 ? (
+                                                            <p className='mt-2 text-sm text-gray-500'>No Transactions</p>
+                                                        ) : (
+
+                                                            <div className='w-full h-2 mt-3 rounded-full bg-slate-200'>
+                                                                <div
+                                                                    style={{ width: `${member.percentageSpent}%`}}
+                                                                    // style={{ width: '50%' }}
+                                                                    className={`h-full  rounded-full ${
+                                                                        member.percentageSpent >= 90 ? 'bg-orange-300' : 'bg-slate-600'}`}>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
