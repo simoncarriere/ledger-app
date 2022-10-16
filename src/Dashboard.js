@@ -1,9 +1,6 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-
 // Components
 import Ledger from "./Ledger";
 import {PieChart} from './components/Pie'
-
 
 const Dashboard = () => {
     
@@ -15,10 +12,7 @@ const Dashboard = () => {
             </div>
             {/* Divider  */}
             <div className="flex w-full my-16">
-                <div className="w-1/2">
 
-                  <p>Pie Chart</p>
-                </div>
                 <div>
                     <PieChart/>
                 </div>

@@ -48,16 +48,3 @@ export function PieChart() {
         return <p>Loading...</p>
     }
 }
-
-
-
-
-
-
-            {/* {data && data.labels.length > 0 ? (
-                    // <p>Pie</p>
-                    <Pie data={data} />
-                ) : (
-                    <p>No Pie</p>
-                )} */}
-                {/* <div className="border-4 border-gray-200 border-dashed rounded-lg h-96" /> */}
