@@ -10,13 +10,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ExclamationTriangleIcon, ChevronUpDownIcon, XCircleIcon } from '@heroicons/react/20/solid'
 
 
-const categories = [
-    { id: 1, name: 'Office' },
-    { id: 2, name: 'Travel' },
-    { id: 3, name: 'Digital' },
-    { id: 4, name: 'Marketing' },
-    { id: 5, name: 'Outsourcing' }
-]
+
 
 
 function classNames(...classes) {
@@ -29,7 +23,7 @@ const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear
 
 const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
 
-    const {addTransaction, team} = useContext(LedgerContext)
+    const {addTransaction, team, categories} = useContext(LedgerContext)
 
     const [title, setTitle] = useState('')
     const [amount, setAmount] = useState(0)

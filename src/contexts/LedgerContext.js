@@ -8,8 +8,6 @@ const LedgerContextProvider = ({children}) => {
     const [transactions, setTransactions] = useState([])
     const [team, setTeam] = useState([])
 
-
-
     // Refactor state to use Reducer
     // const [state, dispatch] = useReducer(LedgerReducer, []) //(LedgerReducer, [])
 
@@ -35,9 +33,6 @@ const LedgerContextProvider = ({children}) => {
     }, [team])
 
 
-
-
-
     // Calculate each team members total amount spent and udpate state
     useEffect(() => {
 
@@ -51,7 +46,7 @@ const LedgerContextProvider = ({children}) => {
     
                 // 3. Grab the amount spent of each transaction and convert value to a number (localstorage returns amount as string)
                 const transactionsAmount = membersTransactions.map(transaction => {
-                return Number(transaction.amount);
+                    return Number(transaction.amount);
                 });
     
                 // 4. Calculate total amount spent & % spent
@@ -70,20 +65,7 @@ const LedgerContextProvider = ({children}) => {
             }
         }
 
-
     }, [transactions])
-
-
-
-
-
-
-
-
-
-
-
-
 
     const addTransaction = (newTransaction) => {
         setTransactions([...transactions, newTransaction])
@@ -97,9 +79,17 @@ const LedgerContextProvider = ({children}) => {
         setTeam([...team, newTeamMember])
     }
 
+    const categories = [
+        { id: 1, name: 'Office' },
+        { id: 2, name: 'Travel' },
+        { id: 3, name: 'Digital' },
+        { id: 4, name: 'Marketing' },
+        { id: 5, name: 'Outsourcing' }
+    ]
+
 	return (
         // <LedgerContext.Provider value={{...state, dispatch}}>
-        <LedgerContext.Provider value={{transactions, addTransaction, removeTransaction, team, setTeam, addTeamMember}}>
+        <LedgerContext.Provider value={{transactions, addTransaction, removeTransaction, team, setTeam, addTeamMember, categories}}>
 			{children}
 		</LedgerContext.Provider>
 	)

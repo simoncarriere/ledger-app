@@ -1,14 +1,21 @@
 import {useState, useEffect, useContext} from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { PolarArea } from 'react-chartjs-2';
 
 // Context
 import { LedgerContext } from '../contexts/LedgerContext'
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
 
-export function PieChart() {
+
+export function PolarAreaChart() {
 
     const [chartData, setChartData] = useState()
     const {team} = useContext(LedgerContext)
@@ -19,7 +26,6 @@ export function PieChart() {
         let spentData = team.map(x => x.totalSpent)
         let teamData = team.map(x => x.name)
         
-
         setChartData({
             labels: teamData, 
             datasets: [
@@ -27,21 +33,23 @@ export function PieChart() {
                     label: '#amount spent',
                     data: spentData,
                     backgroundColor: [
-                        '#65a30d',
-                        '#a3e635',
-                        '#d9f99d'
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
                         ]
                     }
                 ]
             })
-        }, [team])
+    }, [team])
 
+
+    
 
     if (chartData) {
         return (
             chartData.labels.length > 0 ? (
                 <div className=' w-72 h-72'>
-                    <Pie data={chartData}/>
+                    <PolarArea data={chartData}/>
                 </div>
             ) : (
                 <p>No Pie</p>

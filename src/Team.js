@@ -62,7 +62,7 @@ const Team = () => {
                                                 <div className="hidden md:block">
                                                     <div>
                                                         <div className="flex items-center justify-between">
-                                                            <p className="text-sm text-gray-900">Spending Limit: {member.percentageSpent}%</p>
+                                                            <p className="text-sm text-gray-900">Limit Spent: {member.percentageSpent}%</p>
                                                             <p className="text-xs text-gray-600">${member.totalSpent} {' '} /{' '}${member.limit}{' '}</p>
                                                         </div>
                                                         {member.totalSpent === 0 ? (
