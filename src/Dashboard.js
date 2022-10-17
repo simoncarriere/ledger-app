@@ -3,7 +3,6 @@ import Ledger from "./Ledger";
 import {PieChart} from './components/Pie'
 import Stats from "./components/Stats";
 import { PolarAreaChart } from "./components/PolarAreaChart";
-import { GroupedBarChart } from "./components/GroupedBarChart";
 import { BarChart } from "./components/BarChart";
 
 const Dashboard = () => {
@@ -18,7 +17,7 @@ const Dashboard = () => {
             
             <div className="flex mt-16">
 
-                {/* <PieChart/> */}
+                <PieChart/>
                 <div className="w-full h-full">
                     <PolarAreaChart />
                 </div>
