@@ -15,14 +15,17 @@ const Dashboard = () => {
             </div>
           
             
-            <div className="flex mt-16">
+            <div className="mt-16 align-middle lg:flex">
 
-                <PieChart/>
-                <div className="w-full h-full">
+                {/* <div className="flex-1">
+                    <PieChart/>
+                </div> */}
+                
+                <div className="flex justify-center flex-1">
                     <PolarAreaChart />
                 </div>
-                {/* <GroupedBarChart/> */}
-                <div className="w-full">
+                
+                <div className="flex-1">
                     <BarChart />
                 </div>
               

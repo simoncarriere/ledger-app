@@ -56,7 +56,7 @@ export function BarChart() {
             ]
         })
         
-    }, [transactions])
+    }, [transactions, categories])
 
     if (chartData) {
         return (

@@ -47,13 +47,13 @@ export function PolarAreaChart() {
 
     if (chartData) {
         return (
-            chartData.labels.length > 0 ? (
+            // chartData.labels.length > 0 ? (
                 <div className=' w-72 h-72'>
                     <PolarArea data={chartData}/>
                 </div>
-            ) : (
-                <p>No Pie</p>
-            )
+            // ) : (
+            //     <p>No Pie</p>
+            // )
         )
     } else {
         return <p>Loading...</p>
