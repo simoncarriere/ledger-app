@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 // Context
 import { LedgerContext } from './contexts/LedgerContext'
 // External Libraries
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 // Components
 import NewTransaction from './components/NewTransaction';
 // Icons
@@ -35,11 +35,13 @@ const Ledger = () => {
                     <h1 className="text-2xl font-medium text-gray-900">Transactions</h1>
                 </div>
                 <div className="flex mt-3 sm:mt-0 sm:ml-4">
-                    <CSVLink data={transactions}>
-                        <button className="inline-flex items-center px-4 py-2 mx-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2">
-                            Export Transactions
-                        </button>
-                    </CSVLink>
+                    {transactions.length > 0 && (
+                        <CSVLink data={transactions} filename={"Transactions-Data.csv"}>
+                            <button className="inline-flex items-center px-4 py-2 mx-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-lime-500 focus:ring-offset-2">
+                                Export Transactions
+                            </button>
+                        </CSVLink>
+                    )}
                     <button
                         onClick={() => setOpenNewTransaction(true)}
                         type="button"
