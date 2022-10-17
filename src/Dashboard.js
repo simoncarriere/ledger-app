@@ -17,9 +17,9 @@ const Dashboard = () => {
             
             <div className="mt-16 align-middle lg:flex">
 
-                {/* <div className="flex-1">
+                <div className="flex-1">
                     <PieChart/>
-                </div> */}
+                </div>
                 
                 <div className="flex justify-center flex-1">
                     <PolarAreaChart />

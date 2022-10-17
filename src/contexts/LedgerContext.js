@@ -3,6 +3,9 @@ import {useState, useEffect, createContext} from 'react'
 
 export const LedgerContext= createContext()
 
+
+
+
 const LedgerContextProvider = ({children}) => {
 
     const [transactions, setTransactions] = useState([])
@@ -33,7 +36,7 @@ const LedgerContextProvider = ({children}) => {
     }, [team])
 
 
-    // Calculate each team members total amount spent and udpate state
+    // Calculate each team members total amount spent and update state
     useEffect(() => {
 
         if (team){
@@ -57,14 +60,13 @@ const LedgerContextProvider = ({children}) => {
                 
                 // 5. Add total to members state
                 return({...member, totalSpent: totalSpent, percentageSpent: percentageSpent}) 
-    
+
             })
 
             if(team.length > 0){
                 setTeam(MembersSpent)
             }
         }
-
     }, [transactions])
 
     const addTransaction = (newTransaction) => {
