@@ -13,19 +13,20 @@ const Team = () => {
     const [openNewMember, setOpenNewMember] = useState(false)
     const [listMode, setListMode] = useState(false)
 
-console.log(team.map(i => i.percentageSpent))
+// console.log(team.map(i => i.percentageSpent))
 
     return ( 
         <>
-
             {/* Table Heading */}
             <div className="flex items-center justify-between ">
                 <div className="px-4 sm:px-6 md:px-0">
                     <h1 className="text-2xl font-medium text-gray-900">Team</h1>
                 </div>
                 <div className="flex mt-3 sm:mt-0 sm:ml-4">
+                    {/* List/Grid */}
                     <span className="inline-flex mr-4 rounded-md shadow-sm isolate">
                         <button
+                            onClick={() => setListMode(true)}
                             type="button"
                             className="relative inline-flex items-center px-2 py-2 text-sm font-medium bg-white border border-slate-300 text-slate-400 rounded-l-md hover:bg-slate-50 focus:z-10 focus:border-lime-400 focus:outline-none focus:ring-1 focus:ring-lime-500"
                         >
@@ -33,6 +34,7 @@ console.log(team.map(i => i.percentageSpent))
                             <ListBulletIcon className="w-5 h-5" aria-hidden="true" />
                         </button>
                         <button
+                            onClick={() => setListMode(false)}
                             type="button"
                             className="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium bg-white border border-slate-300 text-slate-400 rounded-r-md hover:bg-slate-50 focus:z-10 focus:border-lime-400 focus:outline-none focus:ring-1 focus:ring-lime-500"
                         >
@@ -83,13 +85,15 @@ console.log(team.map(i => i.percentageSpent))
                                                     <div>
                                                         <div className="flex items-center justify-between">
                                                             <p className="text-sm text-gray-900">Limit Spent: {member.percentageSpent.toFixed(1)}%</p>
-                                                            <p className="text-xs text-gray-600">${member.totalSpent} {' '} /{' '}${member.limit}{' '}</p>
+                                                            <p className="text-xs text-gray-500">${member.totalSpent} {' '} /{' '}${member.limit}{' '}</p>
                                                         </div>
-                                                        {member.totalSpent === 0 ? (
+                                                        {/* {member.totalSpent === 0 ? (
                                                             <p className='mt-2 text-sm text-gray-500'>No Transactions</p>
                                                         ) : (
 
-                                                            <div className='w-full h-2 mt-3 rounded-full bg-slate-200'>
+                                                             */}
+
+                                                            <div className='w-full h-2 mt-3 rounded-full bg-lime-100'>
                                                                 <div
                                                                     // style={{ width: `${member.percentageSpent}%`}}
                                                                     style={{ width: member.percentageSpent >= 100 ? '100%' :  `${member.percentageSpent}%`}}
@@ -99,7 +103,7 @@ console.log(team.map(i => i.percentageSpent))
                                                                         member.percentageSpent >= 100 ? 'bg-red-400' : 'bg-lime-400'}`}>
                                                                 </div>
                                                             </div>
-                                                        )}
+                                                        {/* )} */}
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,10 +133,10 @@ console.log(team.map(i => i.percentageSpent))
                                     )}
         
                                     {/* <img className="flex-shrink-0 w-32 h-32 mx-auto rounded-full" src={person.imageUrl} alt="" /> */}
-                                    <h3 className="mt-6 text-sm font-medium text-gray-900">{person.name}</h3>
+                                    <h3 className="mt-6 font-medium text-gray-900">{person.name}</h3>
                                     <dl className="flex flex-col justify-between flex-grow mt-1">
                                     <dt className="sr-only">Title</dt>
-                                    <dd className="text-sm text-gray-400">{person.email}</dd>
+                                    <dd className="text-sm text-slate-400">{person.email}</dd>
                                     <dt className="sr-only">Role</dt>
                                     <dd className="mt-3">
                                         <span className="px-2 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded-lg">
@@ -142,11 +146,10 @@ console.log(team.map(i => i.percentageSpent))
                                     </dl>
                                 </div>
         
-        
                                 <div className='py-6 mx-4'>
                                     <div className="flex items-center justify-between">
-                                        <p className="text-sm text-gray-900">Limit Spent: {person.percentageSpent.toFixed(1)}%</p>
-                                        <p className="text-xs text-gray-600">${person.totalSpent} {' '} /{' '}${person.limit}{' '}</p>
+                                        <p className="text-sm font-medium text-gray-900">Limit Spent: {person.percentageSpent.toFixed(1)}%</p>
+                                        <p className="text-xs text-slate-400">${person.totalSpent} {' '} /{' '}${person.limit}{' '}</p>
                                     </div>
                                     <div className='w-full h-4 mt-3 rounded-md bg-lime-100'>
                                             <div
@@ -155,7 +158,6 @@ console.log(team.map(i => i.percentageSpent))
                                                     person.percentageSpent >= 100 ? 'bg-red-400' : 'bg-lime-400'}`}>
                                             </div>
                                     </div>
-                                    
                                 </div>
                             </li>
                         ))}
