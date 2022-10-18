@@ -159,6 +159,7 @@ const Ledger = () => {
                             ) : (
                                 // Empty State
                                 <div
+                                    onClick={() => setOpenNewTransaction(true)} 
                                     className="relative block w-full p-24 text-center border rounded-lg cursor-pointer bg-slate-50 hover:border-slate-200 hover:bg-slate-100"
                                 >
                                     <svg
@@ -167,7 +168,6 @@ const Ledger = () => {
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
                                         aria-hidden="true"
-                                        onClick={() => setOpenNewTransaction(true)}
                                     >
                                         <path
                                         vectorEffect="non-scaling-stroke"

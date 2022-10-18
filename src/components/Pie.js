@@ -39,13 +39,13 @@ export function PieChart() {
 
     if (chartData) {
         return (
-            chartData.labels.length > 0 ? (
-                <div className=' w-72 h-72'>
-                    <Pie data={chartData}/>
+            // chartData.labels.length > 0 ? (
+                <div>
+                    <Pie data={chartData} maintainAspectRatio={true} />
                 </div>
-            ) : (
-                <p>No Pie</p>
-            )
+            // ) : (
+            //     <p>No Pie</p>
+            // )
         )
     } else {
         return <p>Loading...</p>

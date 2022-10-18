@@ -10,18 +10,27 @@ ChartJS.register(CategoryScale,LinearScale,BarElement,Title,Tooltip,Legend);
 
 export const options = {
   responsive: true,
+  scales: {
+    x: {
+      grid: {
+        display: false
+      }
+    },
+    y: {
+      grid: {
+        display: false
+      }
+    }
+  },
   plugins: {
     legend: {
-      position: 'bottom'
+        display: false,
     },
     title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
+      display: false,
     },
   },
 };
-
-
 
 export function BarChart() {
 

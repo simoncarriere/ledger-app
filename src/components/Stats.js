@@ -34,8 +34,8 @@ const Stats = () => {
 
     const stats = [
         { name: 'Total Amount Spent', stat: '$' + totalSpent + '.00' },
-        { name: 'Allocated Amount Spent', stat: allocatedPercentage + '%' },
-        { name: 'Avg. Allocated Amount Spent', stat: avgAllocatedPercentage + '%' },
+        { name: 'Allocated Amount Spent', stat: isNaN(allocatedPercentage) ?  '0%' : allocatedPercentage + '%' },
+        { name: 'Avg. Allocated Amount Spent', stat: isNaN(avgAllocatedPercentage) ? '0%' :  avgAllocatedPercentage + '%' },
       ]
     
     return ( 
