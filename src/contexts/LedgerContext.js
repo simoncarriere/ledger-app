@@ -3,9 +3,6 @@ import {useState, useEffect, createContext} from 'react'
 
 export const LedgerContext= createContext()
 
-
-
-
 const LedgerContextProvider = ({children}) => {
 
     const [transactions, setTransactions] = useState([])

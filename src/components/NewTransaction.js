@@ -76,7 +76,6 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
     }
 
     return ( 
-        // selectedPerson && (
         
         <Transition.Root show={openNewTransaction} as={Fragment}>
             <Dialog as="div" className="relative z-10 " onClose={resetForm}>
@@ -134,7 +133,6 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                     </div>
 
                                     
-
                                     {/* Form */}
                                     <form onSubmit={newTransaction} className="flex flex-col justify-between h-full ">
                                         <div className="relative flex-1 px-4 mt-6 sm:px-6">
@@ -335,8 +333,6 @@ const NewTransaction = ({openNewTransaction, setOpenNewTransaction}) => {
                                                         
                                                         {/* Scenario no team members */}
                                                         {team.length === 0 ? (
-                                                      
-                                                          
                                                             <div className="p-4 bg-yellow-50">
                                                                 <div className="flex">
                                                                 <div className="flex-shrink-0">

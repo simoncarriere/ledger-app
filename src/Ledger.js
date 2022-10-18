@@ -158,7 +158,9 @@ const Ledger = () => {
                                 </table>
                             ) : (
                                 // Empty State
-                                <div className="py-8 text-center border-t border-slate-200 ">
+                                <div
+                                    className="relative block w-full p-24 text-center border rounded-lg cursor-pointer bg-slate-50 hover:border-slate-200 hover:bg-slate-100"
+                                >
                                     <svg
                                         className="w-12 h-12 mx-auto text-gray-400 transition ease-in-out cursor-pointer hover:text-lime-400 hover:-translate-y-1 hover:scale-105"
                                         fill="none"
@@ -175,8 +177,10 @@ const Ledger = () => {
                                         d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
                                         />
                                     </svg>
-                                    <h3 className="mt-2 text-sm font-medium text-gray-900">No Transactions</h3>
-                                    <p className="mt-1 text-sm text-gray-500">Get started by adding your first transaction.</p>  
+                                    <div className="text-center border-slate-200 ">
+                                        <h3 className="mt-2 text-sm font-medium text-gray-900">No Transactions</h3>
+                                        <p className="mt-1 text-sm text-gray-500">Get started by adding your first transaction.</p>  
+                                    </div>
                                 </div>
                             )}
                         </div>

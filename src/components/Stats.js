@@ -40,9 +40,9 @@ const Stats = () => {
     
     return ( 
     
-        <div className="mt-16">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">Last 30 days</h3>
-            <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
+        <div>
+            {/* <h3 className="text-lg font-medium leading-6 text-gray-900">Last 30 days</h3> */}
+            <dl className="grid grid-cols-1 gap-5 sm:grid-cols-3">
                 {stats.map((item) => (
                 <div key={item.name} className="px-4 py-5 overflow-hidden bg-white border rounded-lg cursor-pointer hover:bg-slate-100 sm:p-6">
                     <dd className="text-3xl text-gray-900 ">{item.stat}</dd>
