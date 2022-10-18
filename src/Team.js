@@ -82,7 +82,7 @@ console.log(team.map(i => i.percentageSpent))
                                                 <div className="hidden md:block">
                                                     <div>
                                                         <div className="flex items-center justify-between">
-                                                            <p className="text-sm text-gray-900">Limit Spent: {member.percentageSpent}%</p>
+                                                            <p className="text-sm text-gray-900">Limit Spent: {member.percentageSpent.toFixed(1)}%</p>
                                                             <p className="text-xs text-gray-600">${member.totalSpent} {' '} /{' '}${member.limit}{' '}</p>
                                                         </div>
                                                         {member.totalSpent === 0 ? (
@@ -145,7 +145,7 @@ console.log(team.map(i => i.percentageSpent))
         
                                 <div className='py-6 mx-4'>
                                     <div className="flex items-center justify-between">
-                                        <p className="text-sm text-gray-900">Limit Spent: {person.percentageSpent}%</p>
+                                        <p className="text-sm text-gray-900">Limit Spent: {person.percentageSpent.toFixed(1)}%</p>
                                         <p className="text-xs text-gray-600">${person.totalSpent} {' '} /{' '}${person.limit}{' '}</p>
                                     </div>
                                     <div className='w-full h-4 mt-3 rounded-md bg-lime-100'>
