@@ -9,6 +9,7 @@ import LedgerContextProvider from './contexts/LedgerContext';
 import Sidenav from './components/Sidenav';
 import Topbar from './components/Topbar';
 import Main from './Main'
+// import CmdPalette from './components/CmdPalette'
 
 function App() {
 
@@ -29,6 +30,8 @@ function App() {
 
               {/* MAIN CONTENT */}              
               <Main/>
+
+              {/* <CmdPalette /> */}
               
             </div>
           </div>
